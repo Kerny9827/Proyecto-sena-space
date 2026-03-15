@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/icono3.png" alt="Sena Space Icon" style="width:32px; height:32px; border-radius: 50%;">
+    <title>Sena Space</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        /* ===== Tema personalizado SENA SPACE ===== */
+
+        /* Colores principales */
+        :root {
+            --verde: #2e8b57;
+            --azul-oscuro: #1e3c72;
+            --gris-suave: #f8f9fc;
+            --texto: #1f2937;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radio: 10px;
+            --transicion: all 0.25s ease;
+        }
+
+        /* Sidebar con gradiente más elegante */
+        .bg-gradient-primary {
+            background: linear-gradient(160deg, var(--verde) 0%, var(--azul-oscuro) 100%);
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hover de los enlaces del sidebar */
+        .sidebar .nav-item .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-radius: var(--radio);
+            transform: translateX(3px);
+            transition: var(--transicion);
+        }
+
+        /* Marca del sidebar */
+        .sidebar-brand-text {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+            color: #fff !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Topbar */
+        .topbar {
+            background-color: var(--gris-suave);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--sombra);
+        }
+
+        /* Imagen de perfil */
+        .img-profile {
+            border: 2px solid var(--verde);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+            transition: var(--transicion);
+        }
+
+        .img-profile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(46, 139, 87, 0.3);
+        }
+
+        /* Tarjeta de tabla */
+        .card {
+            border: none;
+            border-radius: var(--radio);
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cabecera de tarjeta */
+        .card-header {
+            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
+            color: #fff;
+            border-bottom: none;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* Tabla mejorada */
+        .table {
+            border-radius: var(--radio);
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        .table thead {
+            background-color: #e5f4ec;
+            color: var(--verde);
+            font-weight: 700;
+            border-bottom: 2px solid var(--verde);
+        }
+
+        .table tbody tr {
+            transition: var(--transicion);
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f8f4;
+            transform: scale(1.01);
+        }
+
+        /* Botón primario */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
+            border: none;
+            transition: var(--transicion);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Botón secundario */
+        .btn-secondary {
+            background: #e5e7eb;
+            color: var(--texto);
+            border: none;
+            transition: var(--transicion);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+
+        /* Scroll to top */
+        .scroll-to-top {
+            background: linear-gradient(180deg, var(--verde), var(--azul-oscuro));
+            border: none;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .sticky-footer {
+            background-color: #fff;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            color: var(--texto);
+            font-size: 0.95rem;
+        }
+
+        /* Animación sutil al cargar contenido */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slider-frame {
+            width: 800px;
+            height: auto;
+            margin: 50px auto 0;
+            overflow: hidden;
+        }
+
+        .slider-frame ul {
+            display: flex;
+            padding: 0;
+            width: 400%;
+            animation: slider 16s infinite ease-in-out;
+        }
+
+        .slider-frame li {
+            list-style: none;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-frame img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .slider-box {
+            width: 80%;
+            margin: 40px auto;
+            background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);
+            /* gris suave de tu tema */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        @keyframes slider {
+            0% {
+                margin-left: 0%;
+            }
+
+            20% {
+                margin-left: 0%;
+            }
+
+            25% {
+                margin-left: -100%;
+            }
+
+            45% {
+                margin-left: -100%;
+            }
+
+            50% {
+                margin-left: -200%;
+            }
+
+            70% {
+                margin-left: -200%;
+            }
+
+            75% {
+                margin-left: -300%;
+            }
+
+            95% {
+                margin-left: -300%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/fondo.png" alt="Logo" style="width:40px; height:40px; border-radius: 50%;">
+                </div>
+                <div class="sidebar-brand-text mx-2">Sena Space</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Menú Principal
+            </div>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Inicio</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Gráficos
+            </div>
+
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-bar"></i>
+                    <span>Ranking & linea de progreso</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-project-diagram"></i>
+                    <span>RAPS</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Perfil y Configuración
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="buttons.html">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Configuración de cuenta</span></a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
+
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- User Info -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    id="userNameTop">Usuario</span>
+                                <br>
+                                <span class="mr-2 d-none d-lg-inline text-gray-500 small" id="userRoleTop"></span>
+                                <img class="img-profile rounded-circle" src="img/fondo.png" alt="Logo">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="buttons.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <a class="dropdown-item" href="Perfil.html">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Configuración
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar sesión
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="container-fluid" style="text-align: center;">
+
+                    <h1>Bienvenido a Sena Space</h1>
+                    <p id="welcomeUser"></p>
+                    <p id="userRole"></p>
+
+                </div>
+
+                <div class="slider-frame">
+                    <ul>
+                        <li><a href="https://www.instagram.com/senacomunica/" target="_blank"><img src="img/instagram.png" alt="Intagram del sena"></a></li>
+                        <li><a href="https://betowa.sena.edu.co/" target="_blank"><img src="img/Betowa.png" alt="Logo Betowa"></a></li>
+                        <li><a href="http://senasofiaplus.edu.co/sofia-public/" target="_blank"><img src="img/sofia plus.png" alt="Logo Sofia Plus"></a></li>
+                        <li><a href="https://caprendizaje.sena.edu.co/sgva/SGVA_Diseno/pag/login.aspx" target="_blank"><img src="img/SVGA.png" alt="Logo SVGA"></a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- End of Main Content -->
+            <!-- Footer -->
+
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Sena Space 2025</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Script de sesión -->
+    <script>
+
+        // Recuperar datos desde localStorage
+        let name = localStorage.getItem("userName");
+        let userType = localStorage.getItem("userType");
+
+        if (name) {
+            document.getElementById("welcomeUser").textContent = "Hola, " + name;
+            document.getElementById("userNameTop").textContent = name;
+        }
+
+        if (userType) {
+            let formattedRole = userType.charAt(0).toUpperCase() + userType.slice(1);
+            document.getElementById("userRole").textContent = "Tu rol es: " + formattedRole;
+            document.getElementById("userRoleTop").textContent = formattedRole;
+        }
+
+        // Cerrar sesión
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            localStorage.removeItem("isLoggedIn");
+            alert("👋 Sesión cerrada correctamente.");
+            window.location.href = "login.html";
+        });
+    </script>
+
+</body>
+
+</html>

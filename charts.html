@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/icono3.png">
+    <title>Ranking</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <script>
+        function setProgress(porcentaje) {
+            const circle = document.querySelector(".circulo-recorrido");
+            const text = document.querySelector(".progress-percentage");
+            const barra = document.querySelector(".linea-progreso-relleno");
+
+            const longitud = getComputedStyle(document.documentElement)
+                .getPropertyValue("--circulo-longitud").trim();
+            // Calcula el recorrido del círculo
+            const recorrido = longitud - (longitud * porcentaje / 100);
+            circle.style.strokeDashoffset = recorrido;
+
+            // Anima el texto (contador de %)
+            let start = 0;
+            const duration = 1500; // 1.5s
+            const startTime = performance.now();
+
+            function animateText(time) {
+                const elapsed = time - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const value = Math.floor(start + (porcentaje - start) * progress);
+                text.textContent = value + "%";
+
+                // También animamos la barra horizontal
+                barra.style.width = value + "%";
+
+                if (progress < 1) requestAnimationFrame(animateText);
+            }
+            requestAnimationFrame(animateText);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setProgress(65); /* Cambia este valor para ingresar el porcentaje deseado */
+        });
+    </script>
+
+
+
+    <style>
+        /* ===== Tema personalizado SENA SPACE ===== */
+
+        /* Colores principales */
+        :root {
+            --verde: #2e8b57;
+            --azul-oscuro: #1e3c72;
+            --gris-suave: #f8f9fc;
+            --texto: #1f2937;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radio: 10px;
+            --transicion: all 0.25s ease;
+        }
+
+        /* Sidebar con gradiente más elegante */
+        .bg-gradient-primary {
+            background: linear-gradient(160deg, var(--verde) 0%, var(--azul-oscuro) 100%);
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Hover de los enlaces del sidebar */
+        .sidebar .nav-item .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-radius: var(--radio);
+            transform: translateX(3px);
+            transition: var(--transicion);
+        }
+
+        /* Marca del sidebar */
+        .sidebar-brand-text {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+            color: #fff !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Topbar */
+        .topbar {
+            background-color: var(--gris-suave);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--sombra);
+        }
+
+        /* Imagen de perfil */
+        .img-profile {
+            border: 2px solid var(--verde);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+            transition: var(--transicion);
+        }
+
+        .img-profile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(46, 139, 87, 0.3);
+        }
+        
+        /* Botón primario */
+        .btn-primary {
+            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
+            border: none;
+            transition: var(--transicion);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Botón secundario */
+        .btn-secondary {
+            background: #e5e7eb;
+            color: var(--texto);
+            border: none;
+            transition: var(--transicion);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+
+        /* Scroll to top */
+        .scroll-to-top {
+            background: linear-gradient(180deg, var(--verde), var(--azul-oscuro));
+            border: none;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .sticky-footer {
+            background-color: #fff;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            color: var(--texto);
+            font-size: 0.95rem;
+        }
+
+        /* Animación sutil al cargar contenido */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos para la línea de progreso de carrera */
+        .fondo-progreso-carrera {
+            background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .linea-progreso-carrera {
+            position: relative;
+            margin: 30px 0;
+
+        }
+
+        .linea-progreso {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+        }
+
+        .linea-progreso-relleno {
+            height: 100%;
+            background: linear-gradient(90deg, #00c851, #007e33);
+            border-radius: 2px;
+            transition: width 2s ease-in-out;
+            box-shadow: 0 2px 10px rgba(0, 200, 81, 0.4);
+        }
+
+        .punto-progreso {
+            position: relative;
+            display: inline-block;
+            width: 25%;
+            text-align: center;
+        }
+
+        .circulo-progreso {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .circulo-progreso.completed {
+            background: linear-gradient(135deg, #00c851, #007e33);
+            border-color: #00c851;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 200, 81, 0.4);
+        }
+
+        .circulo-progreso.current {
+            background: linear-gradient(135deg, #ffc107, #ff8f00);
+            border-color: #ffc107;
+            animation: pulse 2s infinite;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .circulo-progreso.pending {
+            background: rgba(253, 164, 164, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        .titulo-progreso-carrera {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .subtitulo-progreso-carrera {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .separador {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00c851;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Barra de progreso circular */
+        :root {
+            --circulo-longitud: 314;
+            /* circunferencia del círculo (2πr, con r=50) */
+        }
+
+        .circulo-recorrido {
+            stroke: #ff8f00;
+            stroke-linecap: round;
+            stroke-dasharray: var(--circulo-longitud);
+            stroke-dashoffset: var(--circulo-longitud);
+            /* arranca vacío */
+            filter: drop-shadow(0 0 10px rgba(255, 143, 0, 0.5));
+            transition: stroke-dashoffset 1.5s ease-in-out;
+        }
+
+
+        .progreso-circular {
+            position: relative;
+            /* Contenedor relativo para centrar el texto */
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+        }
+
+        .progreso-circular svg {
+            transform: rotate(-90deg);
+            /* Rotar para que el progreso comience desde arriba */
+            width: 120px;
+            height: 120px;
+        }
+
+        .progreso-circular circle {
+            fill: none;
+            /* Sin relleno */
+            stroke-width: 8;
+        }
+
+        .circle-bg {
+            stroke: rgba(255, 255, 255, 0.2);
+            /* Color de fondo del círculo */
+        }
+
+
+        /* 
+        .circulo-recorrido {
+            stroke: #ff8f00;
+            stroke-linecap: round;
+            stroke-dasharray: var(--circulo-longitud);
+            stroke-dashoffset: var(--circulo-longitud);
+            filter: drop-shadow(0 0 10px rgba(255, 143, 0, 0.5));
+            animation: progress-animation 1.5s ease-in-out forwards;
+            } */
+
+        @keyframes progress-animation {
+            0% {
+                stroke-dashoffset: var(--circulo-longitud);
+            }
+
+            100% {
+                /* stroke-dashoffset: 235.5; */
+                stroke-dashoffset: var(--circulo-recorrido);
+            }
+        }
+
+        .progress-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .career-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .logros-obtenidos {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffc107, #ff8f00);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .logros-obtenidos2 {
+            display: inline-block;
+            background: linear-gradient(135deg, #2e8b57, #1e3c72);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+
+</head>
+
+<body id="page-top" style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon">
+                    <img src="img/fondo.png" alt="Logo" style="width:40px; height:40px; border-radius: 50%;">
+                </div>
+                <div class="sidebar-brand-text mx-2">Sena Space</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+                        <!-- Heading -->
+            <div class="sidebar-heading">
+                Menú Principal
+            </div>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Inicio</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Gráficos
+            </div>
+
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item active">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-bar"></i>
+                    <span>Ranking & linea de progreso</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-project-diagram"></i>
+                    <span>RAPS</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Perfil y Configuración
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="buttons.html">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Configuración de cuenta</span></a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Barra de busqueda -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header" style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+                                    Notificaciones
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 7, 2019</div>
+                                        $290.29 has been deposited into your account!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 2, 2019</div>
+                                        Spending Alert: We've noticed unusually high spending for your account.
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Mirar todas las Notificaciones</a>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - Messages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-comment fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+                                <h6 class="dropdown-header" style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+                                    Centro de Mensajes
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div class="font-weight-bold">
+                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
+                                            problem I've been having.</div>
+                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">I have the photos that you ordered last month, how
+                                            would you like them sent to you?</div>
+                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Last month's report looks great, I am very happy with
+                                            the progress so far, keep up the good work!</div>
+                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    <div>
+                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
+                                            told me that people say this to all dogs, even if they aren't good...</div>
+                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Leer todos los Mensajes</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Ajustes
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Desconectarse
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Ranking & línea de progreso</h1>
+                    <p class="mb-4">A continuación te mostramos tu ranking y línea de progreso en base a tus resultados
+                        académicos.</p>
+
+                    <!-- Línea de Progreso de Carrera -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="fondo-progreso-carrera">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h3 class="mb-3"><i class="fas fa-graduation-cap mr-2"></i>Progreso de tu
+                                            Carrera</h3>
+
+                                        <!-- Información de la carrera -->
+                                        <div class="career-info">
+                                            <div class="info-row">
+                                                <span><strong>Carrera:</strong></span>
+                                                <span>Tecnólogo en Análisis y Desarrollo de Software</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span><strong>Ficha:</strong></span>
+                                                <span>3142868</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span><strong>Fecha de inicio:</strong></span>
+                                                <span>Febrero 2025</span>
+                                            </div>
+                                            <div class="info-row">
+                                                <span><strong>Fecha estimada de finalización:</strong></span>
+                                                <span>Mayo 2027</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- linea de progreso de progreso -->
+                                        <div class="linea-progreso-carrera">
+                                            <div class="linea-progreso">
+                                                <div class="linea-progreso-relleno" style="width: 0%;"></div>
+                                            </div>
+
+                                            <div class="punto-progreso">
+                                                <div class="circulo-progreso completed">
+                                                    <i class="fas fa-laptop-code"></i>
+                                                </div>
+                                                <div class="titulo-progreso-carrera">Fundamentos</div>
+                                                <div class="subtitulo-progreso-carrera">Trimestre 1-2</div>
+                                            </div>
+
+                                            <div class="punto-progreso">
+                                                <div class="circulo-progreso completed">
+                                                    <i class="fas fa-code"></i>
+                                                </div>
+                                                <div class="titulo-progreso-carrera">Programación</div>
+                                                <div class="subtitulo-progreso-carrera">Trimestre 3-4</div>
+                                            </div>
+
+                                            <div class="punto-progreso">
+                                                <div class="circulo-progreso current">
+                                                    <i class="fas fa-database"></i>
+                                                </div>
+                                                <div class="titulo-progreso-carrera">Bases de Datos</div>
+                                                <div class="subtitulo-progreso-carrera">Trimestre 5-6</div>
+                                            </div>
+
+                                            <div class="punto-progreso">
+                                                <div class="circulo-progreso pending">
+                                                    <i class="fas fa-project-diagram"></i>
+                                                </div>
+                                                <div class="titulo-progreso-carrera">Desarrollo Web</div>
+                                                <div class="subtitulo-progreso-carrera">Trimestre 7-8</div>
+                                            </div>
+
+                                            <div class="punto-progreso">
+                                                <div class="circulo-progreso pending">
+                                                    <i class="fas fa-fire-alt"></i>
+                                                </div>
+                                                <div class="titulo-progreso-carrera">Proyecto Final</div>
+                                                <div class="subtitulo-progreso-carrera">Trimestre 9-10</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Logros obtenidos -->
+                                        <div class="mt-4">
+                                            <h5 class="mb-3">Logros obtenidos:</h5>
+                                            <div>
+                                                <span class="logros-obtenidos"><i class="fas fa-star mr-1"></i>Mejor
+                                                    promedio Trimestre 2</span>
+                                                <span class="logros-obtenidos2"><i
+                                                        class="fas fa-user-check mr-1"></i>Asistencia a clase</span>
+                                                <span class="logros-obtenidos2"><i class="fas fa-users mr-1"></i>Trabajo
+                                                    en equipo</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <!-- Progreso circular -->
+                                        <div class="text-center">
+                                            <div class="progreso-circular">
+                                                <svg>
+                                                    <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
+                                                    <circle class="circulo-recorrido" cx="60" cy="60" r="50"></circle>
+                                                </svg>
+                                                <div class="progress-percentage">0%</div>
+                                            </div>
+                                            <h5 class="mb-3">Progreso General</h5>
+                                        </div>
+
+
+                                        <!-- Estadísticas -->
+                                        <div class="separador">
+                                            <div class="stat-item">
+                                                <div class="stat-number">2.75</div>
+                                                <div class="stat-label">Trimestres completados</div>
+                                            </div>
+                                            <div class="stat-item">
+                                                <div class="stat-number">4.2</div>
+                                                <div class="stat-label">Promedio general</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="separador">
+                                            <div class="stat-item">
+                                                <div class="stat-number">10</div>
+                                                <div class="stat-label">Competencias aprobadas</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin Línea de Progreso de Carrera -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Sena Space 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Selecciona "Cerrar sesión" a continuación si estás listo para finalizar tu sesión actual.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="Login.html">Cerrar sesión</a>
+                </div>
+            </div>  
+        </div>
+    </div> 
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>   
+    <script>
+        // Animar la barra de progreso y el progreso circular al cargar la página
+        document.addEventListener("DOMContentLoaded", function () {
+            // Animar la barra de progreso de la carrera
+            const progresoCarrera = document.querySelector(".linea-progreso-relleno");
+            const porcentajeProgreso = 55; // Porcentaje de progreso (0-100)
+            progresoCarrera.style.width = porcentajeProgreso + "%";
+
+            // Animar el progreso circular
+            const circuloRecorrido = document.querySelector(".circulo-recorrido");
+            const progresoCircular = document.querySelector(".progress-percentage");
+            const radio = circuloRecorrido.r.baseVal.value;
+            const circunferencia = 2 * Math.PI * radio;
+            const offset = circunferencia - (porcentajeProgreso / 100) * circunferencia;
+
+            circuloRecorrido.style.strokeDashoffset = offset;
+            progresoCircular.textContent = porcentajeProgreso + "%";
+        });
+    </script>
+</body>
+</html>

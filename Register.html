@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/icono3.png">
+    <title>Sena Space - Registro</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row">
+
+                            <!-- Logo -->
+                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                <a href="login.html">
+                                    <img src="img/fondo.png" style="max-width: 250px; height:auto;"  
+                                         class="animate__animated animate__pulse animate__infinite">
+                                </a>
+                            </div>
+
+                            <!-- Formulario de Registro -->
+                            <div class="col-md-8">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Crear una cuenta</h1>
+                                    </div>
+
+                                    <form class="user" id="registerForm">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user" id="registerName"
+                                                placeholder="Nombre completo" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="registerEmail" placeholder="Correo" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="registerPassword" placeholder="Contraseña" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="confirmPassword" placeholder="Confirmar contraseña" required>
+                                        </div>
+                                          
+                                       <div class="form-group">
+                                                <select class="form-control form-control-user" id="Tipo de documento" required>
+                                                    <option value="" disabled selected>Tipo de documento </option>
+                                                    <option value="Aprendiz">Cedula</option>
+                                                    <option value="Instructor">Tarjeta de identidad</option>
+                                                    <option value="Seguridad">PPT - Pasaporte</option>
+                                                </select>
+                                            </div>
+                                             <div class="form-group">
+                                            <input int="cedula" class="form-control form-control-user"
+                                                id="Cedula" placeholder="Ingrese numero de documento" required>
+                                        </div>
+                                            <div class="form-group">
+                                                <select class="form-control form-control-user" id="userType" required>
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="Aprendiz">Aprendiz</option>
+                                                    <option value="Instructor">Instructor</option>
+                                                    <option value="Seguridad">Seguridad</option>
+                                                    <option value="Varios">Varios</option>
+                                                    <option value="Cafetería">Cafetería</option>
+                                                    <option value="Visitante">Visitante</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Aquí se mostrará el resultado -->
+                                            <p id="selectedUserType" class="text-primary font-weight-bold"></p>
+
+                                            <script>
+                                                // Escuchar cambios en el select
+                                                document.getElementById("userType").addEventListener("change", function () {
+                                                    let selected = this.value;
+                                                    document.getElementById("selectedUserType").textContent = "Rol: " + selected;
+                                                });
+                                            </script>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success btn-user btn-block">
+                                            Registrar cuenta
+                                        </button>
+                                    </form>
+
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="login.html">¿Ya tienes una cuenta? Inicia sesión</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Formulario -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Registro -->
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let name = document.getElementById("registerName").value.trim();
+            let email = document.getElementById("registerEmail").value.trim();
+            let password = document.getElementById("registerPassword").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let userType = document.getElementById("userType").value;
+
+            // Verificar si el correo ya está registrado
+            let savedEmail = localStorage.getItem("userEmail");
+
+            if (savedEmail === email) {
+                alert("⚠️ Este correo ya está registrado. Por favor inicia sesión.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("⚠️ Las contraseñas no coinciden.");
+                return;
+            }
+
+            // Guardar datos en localStorage
+            localStorage.setItem("userName", name);
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userPassword", password);
+            localStorage.setItem("userType", userType);
+
+            alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+            window.location.href = "login.html"; // Redirigir a login
+        });
+    </script>
+
+</body>
+</html>

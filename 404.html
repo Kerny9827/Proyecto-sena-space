@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acceso con QR - Talanquera Sena Space</title>
+
+  <link rel="icon" href="img/icono3.png" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <body style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+
+
+  <style>
+    
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #496161;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    img.logo {
+      width: 150px;
+      margin-bottom: auto;
+    }
+
+    #qrcode {
+      margin: 20px auto;
+      padding: 10px;
+      background: #f8f9fc;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #info {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    a.crear-cuenta {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a.crear-cuenta:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="img/fondo.png" alt="Logo" class="logo" />
+    <h2>QR de Acceso Diario</h2>
+
+    <!-- QR generado -->
+    <div id="qrcode"></div>
+    <div id="info"></div>
+
+    <a href="registro.html" class="crear-cuenta">¡Crear cuenta!</a>
+  </div>
+
+  <script>
+    // Simulación de usuario por defecto
+    if (!localStorage.getItem("userEmail")) {
+      localStorage.setItem("userName", "Carlos Pérez");
+      localStorage.setItem("userEmail", "carlos@test.com");
+      localStorage.setItem("userPassword", "123456");
+    }
+
+    // Obtener fecha actual
+    function obtenerFechaActual() {
+      const hoy = new Date();
+      const año = hoy.getFullYear();
+      const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+      const dia = String(hoy.getDate()).padStart(2, '0');
+      return `${año}-${mes}-${dia}`;
+    }
+
+    // Generar contenido del QR
+    function generarContenidoQR() {
+      const email = localStorage.getItem("userEmail");
+      const fecha = obtenerFechaActual();
+      return JSON.stringify({ email: email, fecha: fecha });
+    }
+
+    // Generar visualmente el QR
+    function generarQR() {
+      const contenido = generarContenidoQR();
+      const qrcodeContainer = document.getElementById("qrcode");
+      qrcodeContainer.innerHTML = "";
+
+      QRCode.toCanvas(document.createElement("canvas"), contenido, { width: 200 }, function (err, canvas) {
+        if (err) console.error(err);
+        qrcodeContainer.appendChild(canvas);
+        document.getElementById("info").textContent = "QR válido solo para el día: " + obtenerFechaActual();
+      });
+    }
+
+    // Mostrar QR al cargar
+    generarQR();
+
+    // Verifica a medianoche y actualiza QR
+    setInterval(() => {
+      const ahora = new Date();
+      if (ahora.getHours() === 0 && ahora.getMinutes() === 0) {
+        generarQR();
+      }
+    }, 60000);
+  </script>
+</body>
+</html>
