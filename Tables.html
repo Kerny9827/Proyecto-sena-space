@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,154 +23,7 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    <style>
-        /* ===== Tema personalizado SENA SPACE ===== */
-
-        /* Colores principales */
-        :root {
-            --verde: #2e8b57;
-            --azul-oscuro: #1e3c72;
-            --gris-suave: #f8f9fc;
-            --texto: #1f2937;
-            --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --radio: 10px;
-            --transicion: all 0.25s ease;
-        }
-
-        /* Sidebar con gradiente más elegante */
-        .bg-gradient-primary {
-            background: linear-gradient(160deg, var(--verde) 0%, var(--azul-oscuro) 100%);
-            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
-        }
-
-        /* Hover de los enlaces del sidebar */
-        .sidebar .nav-item .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.12);
-            border-radius: var(--radio);
-            transform: translateX(3px);
-            transition: var(--transicion);
-        }
-
-        /* Marca del sidebar */
-        .sidebar-brand-text {
-            font-weight: 700;
-            font-size: 1.3rem;
-            letter-spacing: 0.5px;
-            color: #fff !important;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-        }
-
-        /* Topbar */
-        .topbar {
-            background-color: var(--gris-suave);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: var(--sombra);
-        }
-
-        /* Imagen de perfil */
-        .img-profile {
-            border: 2px solid var(--verde);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
-            transition: var(--transicion);
-        }
-
-        .img-profile:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px rgba(46, 139, 87, 0.3);
-        }
-
-        /* Tarjeta de tabla */
-        .card {
-            border: none;
-            border-radius: var(--radio);
-            box-shadow: var(--sombra);
-            transition: var(--transicion);
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Cabecera de tarjeta */
-        .card-header {
-            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
-            color: #fff;
-            border-bottom: none;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        /* Tabla mejorada */
-        .table {
-            border-radius: var(--radio);
-            overflow: hidden;
-            background-color: #fff;
-        }
-
-        .table thead {
-            background-color: #e5f4ec;
-            color: var(--verde);
-            font-weight: 700;
-            border-bottom: 2px solid var(--verde);
-        }
-
-        .table tbody tr {
-            transition: var(--transicion);
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f8f4;
-            transform: scale(1.01);
-        }
-
-        /* Botón primario */
-        .btn-primary {
-            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
-            border: none;
-            transition: var(--transicion);
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        /* Botón secundario */
-        .btn-secondary {
-            background: #e5e7eb;
-            color: var(--texto);
-            border: none;
-            transition: var(--transicion);
-        }
-
-        .btn-secondary:hover {
-            background: #d1d5db;
-            transform: translateY(-2px);
-        }
-
-        /* Scroll to top */
-        .scroll-to-top {
-            background: linear-gradient(180deg, var(--verde), var(--azul-oscuro));
-            border: none;
-            box-shadow: var(--sombra);
-            transition: var(--transicion);
-        }
-
-        .scroll-to-top:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Footer */
-        .sticky-footer {
-            background-color: #fff;
-            border-top: 1px solid rgba(0, 0, 0, 0.08);
-            color: var(--texto);
-            font-size: 0.95rem;
-        }
-    </style>
+    <link href="css/custom.css" rel="stylesheet">
 
 </head>
 
@@ -185,7 +38,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <img src="img/fondo.png" alt="Logo" style="width:40px; height:40px; border-radius: 50%;">
+                    <img src="img/fondo.png" alt="Logo" class="logo-small">
                 </div>
                 <div class="sidebar-brand-text mx-2">Sena Space</div>
             </a>
