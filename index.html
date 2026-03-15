@@ -75,76 +75,7 @@
             box-shadow: 0 0 10px rgba(46, 139, 87, 0.3);
         }
 
-        /* Tarjeta de tabla */
-        .card {
-            border: none;
-            border-radius: var(--radio);
-            box-shadow: var(--sombra);
-            transition: var(--transicion);
-            overflow: hidden;
-        }
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Cabecera de tarjeta */
-        .card-header {
-            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
-            color: #fff;
-            border-bottom: none;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        /* Tabla mejorada */
-        .table {
-            border-radius: var(--radio);
-            overflow: hidden;
-            background-color: #fff;
-        }
-
-        .table thead {
-            background-color: #e5f4ec;
-            color: var(--verde);
-            font-weight: 700;
-            border-bottom: 2px solid var(--verde);
-        }
-
-        .table tbody tr {
-            transition: var(--transicion);
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f8f4;
-            transform: scale(1.01);
-        }
-
-        /* Botón primario */
-        .btn-primary {
-            background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
-            border: none;
-            transition: var(--transicion);
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        /* Botón secundario */
-        .btn-secondary {
-            background: #e5e7eb;
-            color: var(--texto);
-            border: none;
-            transition: var(--transicion);
-        }
-
-        .btn-secondary:hover {
-            background: #d1d5db;
-            transform: translateY(-2px);
-        }
 
         /* Scroll to top */
         .scroll-to-top {
@@ -167,10 +98,7 @@
             font-size: 0.95rem;
         }
 
-        /* Animación sutil al cargar contenido */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
+
 
         .slider-frame {
             width: 800px;
@@ -200,15 +128,6 @@
             border-radius: 15px;
         }
 
-        .slider-box {
-            width: 80%;
-            margin: 40px auto;
-            background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);
-            /* gris suave de tu tema */
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
-        }
 
         @keyframes slider {
             0% {
@@ -241,18 +160,6 @@
 
             95% {
                 margin-left: -300%;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
             }
         }
     </style>
@@ -403,10 +310,14 @@
 
                 <div class="slider-frame">
                     <ul>
-                        <li><a href="https://www.instagram.com/senacomunica/" target="_blank"><img src="img/instagram.png" alt="Intagram del sena"></a></li>
-                        <li><a href="https://betowa.sena.edu.co/" target="_blank"><img src="img/Betowa.png" alt="Logo Betowa"></a></li>
-                        <li><a href="http://senasofiaplus.edu.co/sofia-public/" target="_blank"><img src="img/sofia plus.png" alt="Logo Sofia Plus"></a></li>
-                        <li><a href="https://caprendizaje.sena.edu.co/sgva/SGVA_Diseno/pag/login.aspx" target="_blank"><img src="img/SVGA.png" alt="Logo SVGA"></a></li>
+                        <li><a href="https://www.instagram.com/senacomunica/" target="_blank"><img
+                                    src="img/instagram.png" alt="Intagram del sena"></a></li>
+                        <li><a href="https://betowa.sena.edu.co/" target="_blank"><img src="img/Betowa.png"
+                                    alt="Logo Betowa"></a></li>
+                        <li><a href="http://senasofiaplus.edu.co/sofia-public/" target="_blank"><img
+                                    src="img/sofia plus.png" alt="Logo Sofia Plus"></a></li>
+                        <li><a href="https://caprendizaje.sena.edu.co/sgva/SGVA_Diseno/pag/login.aspx"
+                                target="_blank"><img src="img/SVGA.png" alt="Logo SVGA"></a></li>
                     </ul>
                 </div>
 

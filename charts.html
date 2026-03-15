@@ -112,7 +112,7 @@
             transform: scale(1.05);
             box-shadow: 0 0 10px rgba(46, 139, 87, 0.3);
         }
-        
+
         /* Botón primario */
         .btn-primary {
             background: linear-gradient(90deg, var(--verde), var(--azul-oscuro));
@@ -159,22 +159,7 @@
             font-size: 0.95rem;
         }
 
-        /* Animación sutil al cargar contenido */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
         /* Estilos para la línea de progreso de carrera */
         .fondo-progreso-carrera {
@@ -437,7 +422,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-                        <!-- Heading -->
+            <!-- Heading -->
             <div class="sidebar-heading">
                 Menú Principal
             </div>
@@ -561,7 +546,8 @@
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header" style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+                                <h6 class="dropdown-header"
+                                    style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
                                     Notificaciones
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -597,7 +583,8 @@
                                         Spending Alert: We've noticed unusually high spending for your account.
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Mirar todas las Notificaciones</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Mirar todas las
+                                    Notificaciones</a>
                             </div>
                         </li>
 
@@ -612,7 +599,8 @@
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header" style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+                                <h6 class="dropdown-header"
+                                    style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
                                     Centro de Mensajes
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -660,7 +648,8 @@
                                         <div class="small text-gray-500">Chicken the Dog · 2w</div>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Leer todos los Mensajes</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Leer todos los
+                                    Mensajes</a>
                             </div>
                         </li>
 
@@ -866,14 +855,15 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Selecciona "Cerrar sesión" a continuación si estás listo para finalizar tu sesión actual.</div>
+                <div class="modal-body">Selecciona "Cerrar sesión" a continuación si estás listo para finalizar tu
+                    sesión actual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                     <a class="btn btn-primary" href="Login.html">Cerrar sesión</a>
                 </div>
-            </div>  
+            </div>
         </div>
-    </div> 
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -881,11 +871,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>   
+
     <script>
         // Animar la barra de progreso y el progreso circular al cargar la página
         document.addEventListener("DOMContentLoaded", function () {
@@ -906,4 +892,5 @@
         });
     </script>
 </body>
+
 </html>
