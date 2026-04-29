@@ -1,13 +1,9 @@
 <?php
-/* login.php */
-
-/* DATOS DE CONEXIÓN */
 $servidor = "localhost";
 $usuario  = "root";
 $password = "";
 $basedatos = "sena_space";
 
-/* CONEXIÓN */
 $conexion = mysqli_connect($servidor, $usuario, $password, $basedatos);
 
 if (!$conexion) {
@@ -16,13 +12,11 @@ if (!$conexion) {
 
 mysqli_set_charset($conexion, "utf8");
 
-/* VALIDAR ENVÍO DEL FORMULARIO */
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $correo = trim($_POST["correo"]);
     $clave  = trim($_POST["password"]);
 
-    /* CONSULTAR USUARIO */
     $sql = "SELECT * FROM usuarios WHERE correo='$correo' AND password='$clave'";
     $resultado = mysqli_query($conexion, $sql);
 
