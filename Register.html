@@ -19,6 +19,7 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+
 </head>
 
 <body class="bg-gradient-sena">
@@ -30,73 +31,61 @@
                     <div class="card-body p-0">
                         <div class="row">
 
-                            <!-- Logo -->
-                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <div class="col-md-4 d-flex justify-content-center align-items-center" style="width: 40%; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5;">
                                 <a href="login.html">
                                     <img src="img/fondo.png" class="logo-large animate__animated animate__pulse animate__infinite" alt="Logo Sena Space">
                                 </a>
                             </div>
 
-                            <!-- Formulario de Registro -->
                             <div class="col-md-8">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Crear una cuenta</h1>
                                     </div>
 
-                                    <form class="user" id="registerForm">
+                                    <form class="user" id="registerForm" action="register.php" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="registerName"
+                                            <input type="text" name="registerName" class="form-control form-control-user" id="registerName"
                                                 placeholder="Nombre completo" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="email" name="registerEmail" class="form-control form-control-user"
                                                 id="registerEmail" placeholder="Correo" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" name="registerPassword" class="form-control form-control-user"
                                                 id="registerPassword" placeholder="Contraseña" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" name="confirmPassword" class="form-control form-control-user"
                                                 id="confirmPassword" placeholder="Confirmar contraseña" required>
                                         </div>
-                                          
-                                       <div class="form-group">
-                                                <select class="form-control form-control-user" id="Tipo de documento" required>
-                                                    <option value="" disabled selected>Tipo de documento </option>
-                                                    <option value="Aprendiz">Cedula</option>
-                                                    <option value="Instructor">Tarjeta de identidad</option>
-                                                    <option value="Seguridad">PPT - Pasaporte</option>
-                                                </select>
-                                            </div>
-                                             <div class="form-group">
-                                            <input int="cedula" class="form-control form-control-user"
+
+                                        <div class="form-group">
+                                            <select class="form-control" id="tipoDocumento" name="tipo_documento" style="border-radius: 50px; height: 50px;" required>
+                                                <option value="" disabled selected>Tipo de documento</option>
+                                                <option value="Cedula">Cédula</option>
+                                                <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                                                <option value="PPT - Pasaporte">PPT - Pasaporte</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="cedula" class="form-control form-control-user"
                                                 id="Cedula" placeholder="Ingrese numero de documento" required>
                                         </div>
-                                            <div class="form-group">
-                                                <select class="form-control form-control-user" id="userType" required>
-                                                    <option value="" disabled selected>Seleccione una opción</option>
-                                                    <option value="Aprendiz">Aprendiz</option>
-                                                    <option value="Instructor">Instructor</option>
-                                                    <option value="Seguridad">Seguridad</option>
-                                                    <option value="Varios">Varios</option>
-                                                    <option value="Cafetería">Cafetería</option>
-                                                    <option value="Visitante">Visitante</option>
-                                                </select>
-                                            </div>
-
-                                            <!-- Aquí se mostrará el resultado -->
-                                            <p id="selectedUserType" class="text-primary font-weight-bold"></p>
-
-                                            <script>
-                                                // Escuchar cambios en el select
-                                                document.getElementById("userType").addEventListener("change", function () {
-                                                    let selected = this.value;
-                                                    document.getElementById("selectedUserType").textContent = "Rol: " + selected;
-                                                });
-                                            </script>
+                                        <div class="form-group">
+                                            <select class="form-control" id="userType" name="userType" style="border-radius: 50px; height: 50px;" required>
+                                                <option value="" disabled selected>Seleccione su rol</option>
+                                                <option value="Aprendiz">Aprendiz</option>
+                                                <option value="Instructor">Instructor</option>
+                                                <option value="Seguridad">Seguridad</option>
+                                                <option value="Varios">Varios</option>
+                                                <option value="Cafetería">Cafetería</option>
+                                                <option value="Visitante">Visitante</option>
+                                            </select>
                                         </div>
+
+                                        <p id="selectedUserType" class="text-primary font-weight-bold"></p>
 
                                         <button type="submit" class="btn btn-success btn-user btn-block">
                                             Registrar cuenta
@@ -120,37 +109,31 @@
 
     <!-- Script de Registro -->
     <script>
-        document.getElementById("registerForm").addEventListener("submit", function (e) {
-            e.preventDefault();
+        document.getElementById("userType").addEventListener("change", function () {
+            let selected = this.value;
+            document.getElementById("selectedUserType").textContent = "Rol: " + selected;
+        });
 
+        document.getElementById("registerForm").addEventListener("submit", function () {
             let name = document.getElementById("registerName").value.trim();
             let email = document.getElementById("registerEmail").value.trim();
             let password = document.getElementById("registerPassword").value;
             let confirmPassword = document.getElementById("confirmPassword").value;
             let userType = document.getElementById("userType").value;
+            let tipoDocumento = document.getElementById("tipoDocumento").value;
+            let cedula = document.getElementById("Cedula").value.trim();
 
-            // Verificar si el correo ya está registrado
-            let savedEmail = localStorage.getItem("userEmail");
-
-            if (savedEmail === email) {
-                alert("⚠️ Este correo ya está registrado. Por favor inicia sesión.");
-                window.location.href = "login.html";
-                return;
+            if (!name || !email || !password || !confirmPassword || !tipoDocumento || !cedula || !userType) {
+                alert("Por favor completa todos los campos.");
+                return false;
             }
 
             if (password !== confirmPassword) {
-                alert("⚠️ Las contraseñas no coinciden.");
-                return;
+                alert("Las contraseñas no coinciden.");
+                return false;
             }
 
-            // Guardar datos en localStorage
-            localStorage.setItem("userName", name);
-            localStorage.setItem("userEmail", email);
-            localStorage.setItem("userPassword", password);
-            localStorage.setItem("userType", userType);
-
-            alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
-            window.location.href = "login.html"; // Redirigir a login
+            return true; // permitir envío al servidor
         });
     </script>
 
