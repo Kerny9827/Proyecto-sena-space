@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-04-2026 a las 02:09:49
+-- Tiempo de generación: 12-05-2026 a las 02:17:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,6 +53,15 @@ CREATE TABLE `admin` (
   `tipo_documento` varchar(50) DEFAULT NULL,
   `contraseña` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `apellido`, `tipo_documento`, `contraseña`) VALUES
+(12345698, 'kd@gmail.com', 'Kevin Jaramillo', 'Aprendiz', 'Cedula', 0),
+(12398745, 'iv@gmail.com', 'Ivan cepeda', 'Visitante', 'Cedula', 0),
+(123456989, 'tbmz@gmail.com', 'Sebas bedoya', 'Aprendiz', 'Cedula', 0);
 
 -- --------------------------------------------------------
 
