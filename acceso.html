@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Login Sena Space">
+    <meta name="author" content="">
+    <link rel="icon" href="img/icono3.png">
+    <title>Sena Space - Acceso</title>
+
+    <!-- Custom fonts -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Animaciones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- Librería QR -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+
+<body class="bg-gradient-sena">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <div class="row">
+
+                        <div class="col-md-4 d-flex justify-content-center align-items-center"
+                             style="width: 40%; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5;">
+                            <a>
+                                <img src="img/fondo.png"
+                                     class="logo-large animate_animated animatepulse animate_infinite"
+                                     alt="Logo Sena Space">
+                            </a>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">¡Bienvenido!</h1>
+                                </div>
+
+                                <form class="user" id="loginForm" action="login.php" method="post">
+                                    <div class="form-group">
+                                        
+                                    <!--OJO HACER CAMBIO DE HREF POR EL INSERT--><a type="button" class="btn btn-primary btn-user btn-block" href="Tables.html">
+                                        Ingreso
+                                        </a>
+                                    
+                                    <!--OJO HACER CAMBIO DE HREF POR EL INSERT--><a type="submit"  class="btn btn-primary btn-user btn-block" href="Register.html">
+                                        Salida
+                                    </a>
+                                
+                                    <br>
+
+                                <div class="text-center">
+                                    <h1><a class="btn" href="#" onclick="mostrarQR()">Escanear QR</a>
+                                </div>
+                                </form>
+                                
+                                <!-- CONTENEDOR QR -->
+                                <div id="qr-container" style="display:none; margin-top:20px; text-align:center;">
+                                    <h5>Escanea tu código QR</h5>
+                                    <div id="reader" style="width:300px; margin:auto;"></div>
+                                    <p id="resultado"></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VALIDACIÓN LOGIN -->
+<script>
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+    let email = document.getElementById("loginEmail").value.trim();
+    let password = document.getElementById("loginPassword").value.trim();
+
+    if (!email || !password) {
+        e.preventDefault();
+        alert("Por favor completa correo y contraseña.");
+    }
+});
+</script>
+
+<!-- SCRIPT QR -->
+<script>
+function mostrarQR() {
+    document.getElementById("qr-container").style.display = "block";
+
+    const scanner = new Html5Qrcode("reader");
+
+    scanner.start(
+        { facingMode: "environment" },
+        {
+            fps: 10,
+            qrbox: 250
+        },
+        (qrCodeMessage) => {
+            document.getElementById("resultado").innerText = "QR detectado: " + qrCodeMessage;
+
+            //  AUTO LLENAR EL CORREO (MEJORA PRO)
+            if (qrCodeMessage.includes("@")) {
+                document.getElementById("loginEmail").value = qrCodeMessage;
+            }
+
+            //  REDIRECCIÓN SI ES LINK
+            if (qrCodeMessage.startsWith("http")) {
+                window.location.href = qrCodeMessage;
+            }
+
+            scanner.stop();
+        },
+        (errorMessage) => {
+            // errores ignorados
+        }
+    );
+}
+</script>
+
+</body>
+</html>
