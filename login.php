@@ -45,7 +45,7 @@ if (mysqli_stmt_fetch($stmt)) {
         $_SESSION['correo'] = $email;
         mysqli_stmt_close($stmt);
         mysqli_close($conexion);
-        header('Location: index.html');
+        header('Location: home.html');
         exit;
     }
 }
