@@ -49,7 +49,7 @@ CREATE TABLE `admin` (
   `cedula` int(11) NOT NULL,
   `correo` varchar(50) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `apellido` varchar(50) DEFAULT NULL,
+  `tipo_usuario` varchar(50) DEFAULT NULL,
   `tipo_documento` varchar(50) DEFAULT NULL,
   `contraseña` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -58,7 +58,7 @@ CREATE TABLE `admin` (
 -- Volcado de datos para la tabla `admin`
 --
 
-INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `apellido`, `tipo_documento`, `contraseña`) VALUES
+INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `tipo_usuario`, `tipo_documento`, `contraseña`) VALUES
 (12345698, 'kd@gmail.com', 'Kevin Jaramillo', 'Aprendiz', 'Cedula', 0),
 (12398745, 'iv@gmail.com', 'Ivan cepeda', 'Visitante', 'Cedula', 0),
 (123456989, 'tbmz@gmail.com', 'Sebas bedoya', 'Aprendiz', 'Cedula', 0);

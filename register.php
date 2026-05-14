@@ -27,7 +27,7 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
 if ($password !== $confirmPassword) {
     echo "<script>alert('Las contraseñas no coinciden.'); window.location='Register.html';</script>";
     exit;
-}
+}   
 
 if (!is_numeric($cedula)) {
     echo "<script>alert('La cédula debe contener solo números.'); window.location='Register.html';</script>";
@@ -56,7 +56,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 mysqli_stmt_close($stmt);
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-$sql = 'INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `apellido`, `tipo_documento`, `contraseña`) VALUES (?, ?, ?, ?, ?, ?)';
+$sql = 'INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `tipo_usuario`, `tipo_documento`, `contraseña`) VALUES (?, ?, ?, ?, ?, ?)';
 $stmt = mysqli_prepare($conexion, $sql);
 if (!$stmt) {
     die('Error en la preparación del registro: ' . mysqli_error($conexion));
