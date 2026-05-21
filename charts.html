@@ -10,13 +10,11 @@
     <link rel="icon" href="img/icono3.png">
     <title>Ranking</title>
 
-    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <script>
@@ -27,11 +25,10 @@
 
             const longitud = getComputedStyle(document.documentElement)
                 .getPropertyValue("--circulo-longitud").trim();
-            // Calcula el recorrido del círculo
-            const recorrido = longitud - (longitud * porcentaje / 100);
+
+                const recorrido = longitud - (longitud * porcentaje / 100);
             circle.style.strokeDashoffset = recorrido;
 
-            // Anima el texto (contador de %)
             let start = 0;
             const duration = 1500; // 1.5s
             const startTime = performance.now();
@@ -42,7 +39,6 @@
                 const value = Math.floor(start + (porcentaje - start) * progress);
                 text.textContent = value + "%";
 
-                // También animamos la barra horizontal
                 barra.style.width = value + "%";
 
                 if (progress < 1) requestAnimationFrame(animateText);
@@ -63,13 +59,10 @@
 
 <body id="page-top" class="bg-gradient-sena">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
                 <div class="sidebar-brand-icon">
                     <img src="img/fondo.png" alt="Logo" class="logo-small">
@@ -77,83 +70,65 @@
                 <div class="sidebar-brand-text mx-2">Sena Space</div>
             </a>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
-            <!-- Heading -->
+
             <div class="sidebar-heading">
                 Menú Principal
             </div>
 
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="home.html">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Inicio</span></a>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
             <div class="sidebar-heading">
                 Gráficos
             </div>
 
-
-            <!-- Nav Item - Charts -->
             <li class="nav-item active">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-bar"></i>
                     <span>Ranking & linea de progreso</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-project-diagram"></i>
                     <span>RAPS</span></a>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
-            <!-- Heading -->
+
             <div class="sidebar-heading">
                 Perfil y Configuración
             </div>
 
-            <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="buttons.html">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Configuración de cuenta</span></a>
             </li>
 
-
-            <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
         </ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Barra de busqueda -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por..."
                                 aria-label="Search" aria-describedby="basic-addon2">
@@ -165,16 +140,14 @@
                         </div>
                     </form>
 
-                    <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
-                            <!-- Dropdown - Messages -->
+
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
@@ -192,19 +165,17 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
+
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <!-- Dropdown - Alerts -->
+
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header"
-                                    style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
+                                <h6 class="dropdown-header" style="background: linear-gradient(180deg, #2e8b57 10%, #1e3c72 100%);">
                                     Notificaciones
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -245,15 +216,14 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-comment fa-fw"></i>
-                                <!-- Counter - Messages -->
+
                                 <span class="badge badge-danger badge-counter">7</span>
                             </a>
-                            <!-- Dropdown - Messages -->
+
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header"
@@ -312,14 +282,13 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
-                            <!-- Dropdown - User Information -->
+
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
@@ -341,17 +310,13 @@
                     </ul>
 
                 </nav>
-                <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Ranking & línea de progreso</h1>
                     <p class="mb-4">A continuación te mostramos tu ranking y línea de progreso en base a tus resultados
                         académicos.</p>
 
-                    <!-- Línea de Progreso de Carrera -->
                     <div class="row mb-4">
                         <div class="col-12">
                             <div class="fondo-progreso-carrera">
@@ -360,7 +325,6 @@
                                         <h3 class="mb-3"><i class="fas fa-graduation-cap mr-2"></i>Progreso de tu
                                             Carrera</h3>
 
-                                        <!-- Información de la carrera -->
                                         <div class="career-info">
                                             <div class="info-row">
                                                 <span><strong>Carrera:</strong></span>
@@ -380,7 +344,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- linea de progreso de progreso -->
                                         <div class="linea-progreso-carrera">
                                             <div class="linea-progreso">
                                                 <div class="linea-progreso-relleno" style="width: 0%;"></div>
@@ -427,7 +390,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- Logros obtenidos -->
                                         <div class="mt-4">
                                             <h5 class="mb-3">Logros obtenidos:</h5>
                                             <div>
@@ -442,7 +404,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <!-- Progreso circular -->
+
                                         <div class="text-center">
                                             <div class="progreso-circular">
                                                 <svg>
@@ -454,8 +416,6 @@
                                             <h5 class="mb-3">Progreso General</h5>
                                         </div>
 
-
-                                        <!-- Estadísticas -->
                                         <div class="separador">
                                             <div class="stat-item">
                                                 <div class="stat-number">2.75</div>
@@ -479,12 +439,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Fin Línea de Progreso de Carrera -->
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
+
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -492,16 +449,12 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
         </div>
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <!-- Logout Modal-->
+
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -521,23 +474,18 @@
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
-        // Animar la barra de progreso y el progreso circular al cargar la página
         document.addEventListener("DOMContentLoaded", function () {
-            // Animar la barra de progreso de la carrera
             const progresoCarrera = document.querySelector(".linea-progreso-relleno");
             const porcentajeProgreso = 55; // Porcentaje de progreso (0-100)
             progresoCarrera.style.width = porcentajeProgreso + "%";
 
-            // Animar el progreso circular
             const circuloRecorrido = document.querySelector(".circulo-recorrido");
             const progresoCircular = document.querySelector(".progress-percentage");
             const radio = circuloRecorrido.r.baseVal.value;

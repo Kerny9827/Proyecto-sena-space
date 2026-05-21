@@ -1,6 +1,3 @@
-/* ===== Tema personalizado SENA SPACE ===== */
-
-/* Colores principales */
 :root {
     --verde: #2e8b57;
     --azul-oscuro: #1e3c72;
@@ -8,7 +5,7 @@
     --texto: #1f2937;
     --sombra: 0 4px 12px rgba(0, 0, 0, 0.08);
     --radio: 10px;
-    --transicion: all 0.25s ease;
+    --transicion: all 0.15s ease;
 }
 
 /* Clases utilitarias */
@@ -95,7 +92,7 @@
 }
 
 .card:hover {
-    transform: translateY(-3px);
+    /* transform: translateY(-3px); */ /*Modificando esta linea eliminamos las animaciones de los cuadros del perfil de buttons*/
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 

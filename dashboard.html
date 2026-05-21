@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sena Space — Dashboard</title>
 
-  <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Heroicons -->
   <script src="https://unpkg.com/feather-icons"></script>
 
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -30,7 +27,6 @@
 <body class="text-gray-100 font-sans antialiased">
   <div class="min-h-screen flex">
 
-    <!-- SIDEBAR -->
     <aside class="w-72 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 p-6 flex flex-col">
       <div class="mb-6 flex items-center gap-3">
         <div class="h-12 w-12 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center font-bold">SS</div>
@@ -53,10 +49,8 @@
       <div class="mt-4 text-xs text-slate-400">Versión prototipo · Última sincronización: <strong>27 Dic 2025</strong></div>
     </aside>
 
-    <!-- MAIN -->
     <main class="flex-1 p-6 overflow-auto scrollbar-thin">
 
-      <!-- TOP -->
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-4">
           <h2 class="text-2xl font-semibold">Resumen</h2>
@@ -79,10 +73,8 @@
         </div>
       </div>
 
-      <!-- GRID -->
       <div class="grid grid-cols-12 gap-6">
 
-        <!-- CARDS -->
         <section class="col-span-12 lg:col-span-4 space-y-4">
           <div class="p-4 glass rounded-xl border border-slate-700/40">
             <h3 class="text-sm text-slate-300">Usuarios activos</h3>
@@ -122,7 +114,6 @@
           </div>
         </section>
 
-        <!-- CHARTS -->
         <section class="col-span-12 lg:col-span-5">
           <div class="p-4 glass rounded-xl border border-slate-700/40">
             <div class="flex items-center justify-between mb-3">
@@ -147,7 +138,6 @@
           </div>
         </section>
 
-        <!-- TABLE -->
         <section class="col-span-12 lg:col-span-3">
           <div class="p-4 glass rounded-xl border border-slate-400/40 h-full flex flex-col">
             <h3 class="text-sm text-slate-300">Actividad reciente</h3>
@@ -175,11 +165,9 @@
     </main>
   </div>
 
-  <!-- JS -->
   <script>
     feather.replace();
 
-    // Mini line chart
     const miniCtx = document.getElementById('miniLine').getContext('2d');
     new Chart(miniCtx, {
       type: 'line',
@@ -196,7 +184,6 @@
       options: { responsive:true, plugins:{legend:{display:false}}, scales:{x:{display:false}, y:{display:false}} }
     });
 
-    // Main chart
     const mainCtx = document.getElementById('mainChart').getContext('2d');
     new Chart(mainCtx, {
       type: 'bar',
@@ -226,7 +213,6 @@
       
     });
 
-    // DOUGHNUT FIXED SIZE
     const dough = document.getElementById('doughnut').getContext('2d');
     new Chart(dough, {
       type: 'doughnut',
