@@ -52,13 +52,13 @@
                                 <form class="user" id="loginForm" action="login.php" method="post">
                                     <div class="form-group">
                                         
-                                    <!--OJO HACER CAMBIO DE HREF POR EL INSERT--><a type="button" class="btn btn-primary btn-user btn-block" href="Tables.html">
+                                    <button type="button" class="btn btn-primary btn-user btn-block" onclick="registrarAcceso('ingreso')">
                                         Ingreso
-                                        </a>
+                                        </button>
                                     
-                                    <!--OJO HACER CAMBIO DE HREF POR EL INSERT--><a type="submit"  class="btn btn-primary btn-user btn-block" href="Register.html">
+                                    <button type="button" class="btn btn-primary btn-user btn-block" onclick="registrarAcceso('salida')">
                                         Salida
-                                    </a>
+                                    </button>
                                 
                                     <br>
 
@@ -99,6 +99,8 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
 <!-- SCRIPT QR -->
 <script>
+let cedulaEscaneada = null;
+
 function mostrarQR() {
     document.getElementById("qr-container").style.display = "block";
 
@@ -112,6 +114,9 @@ function mostrarQR() {
         },
         (qrCodeMessage) => {
             document.getElementById("resultado").innerText = "QR detectado: " + qrCodeMessage;
+
+            // Asumir que el QR contiene la cédula como número
+            cedulaEscaneada = parseInt(qrCodeMessage);
 
             //  AUTO LLENAR EL CORREO (MEJORA PRO)
             if (qrCodeMessage.includes("@")) {
@@ -129,6 +134,34 @@ function mostrarQR() {
             // errores ignorados
         }
     );
+}
+
+function registrarAcceso(tipo) {
+    if (!cedulaEscaneada) {
+        alert("Primero escanea un código QR para obtener la cédula.");
+        return;
+    }
+
+    fetch('insert_acceso.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'cedula=' + cedulaEscaneada + '&tipo=' + tipo
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            // Resetear cédula después de registro
+            cedulaEscaneada = null;
+            document.getElementById("resultado").innerText = "";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al registrar el acceso.');
+    });
 }
 </script>
 
