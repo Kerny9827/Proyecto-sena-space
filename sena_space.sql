@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2026 a las 01:23:02
+-- Tiempo de generación: 28-05-2026 a las 02:56:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,7 +51,7 @@ CREATE TABLE `admin` (
   `nombre` varchar(50) DEFAULT NULL,
   `tipo_usuario` varchar(50) DEFAULT NULL,
   `tipo_documento` varchar(50) DEFAULT NULL,
-  `contraseña` int(11) DEFAULT NULL
+  `contraseña` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -59,9 +59,10 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `tipo_usuario`, `tipo_documento`, `contraseña`) VALUES
-(12345698, 'kd@gmail.com', 'Kevin Jaramillo', 'Aprendiz', 'Cedula', 0),
-(12398745, 'iv@gmail.com', 'Ivan cepeda', 'Visitante', 'Cedula', 0),
-(123456989, 'tbmz@gmail.com', 'Sebas bedoya', 'Aprendiz', 'Cedula', 0);
+(12345698, 'kd@gmail.com', 'Kevin Jaramillo', 'Aprendiz', 'Cedula', '0'),
+(12398745, 'iv@gmail.com', 'Ivan cepeda', 'Visitante', 'Cedula', '0'),
+(123456989, 'tbmz@gmail.com', 'Sebas bedoya', 'Aprendiz', 'Cedula', '0'),
+(135832168, 'dd@gmail.com', 'Dani D', 'Varios', 'Cedula', '0');
 
 -- --------------------------------------------------------
 
