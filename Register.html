@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <link rel="icon" href="img/icono3.png">
     <title>LOG-IN - Registro</title>
+    
 
     <!-- Fonts -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
@@ -21,117 +22,7 @@
     <!-- QRCode -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
-    <style>
-      body {
-        background: linear-gradient(135deg, #2e302f, #2a4679);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-      }
-
-      .register-card {
-        border: none;
-        border-radius: 25px;
-        overflow: hidden;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-      }
-
-      .left-panel {
-        background: #f8f9fc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px;
-      }
-
-      .logo-large {
-        width: 220px;
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      .form-control,
-      .custom-select {
-        border-radius: 50px !important;
-        height: 52px;
-        padding-left: 20px;
-        border: 2px solid #e5e7eb;
-        transition: 0.3s;
-      }
-
-      .form-control:focus,
-      .custom-select:focus {
-        border-color: #2e8b57;
-        box-shadow: 0 0 10px rgba(46, 139, 87, 0.2);
-      }
-
-      .selected-box {
-        background: #e8fff1;
-        border-left: 5px solid #2e8b57;
-        padding: 12px 18px;
-        border-radius: 10px;
-        margin-top: 10px;
-        display: none;
-        font-weight: 600;
-        color: #2e8b57;
-      }
-
-      .btn-register {
-        border-radius: 50px;
-        height: 50px;
-        font-weight: bold;
-        font-size: 16px;
-        background: linear-gradient(135deg, #606863, #1e3c72);
-        border: none;
-        transition: 0.3s;
-      }
-
-      .btn-register:hover {
-        transform: translateY(-2px);
-        opacity: 0.95;
-      }
-
-      #qrContainer {
-        display: none;
-        margin-top: 30px;
-        text-align: center;
-        animation: fadeIn 0.5s ease;
-      }
-
-      #qrContainer canvas {
-        background: white;
-        padding: 15px;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      }
-
-      .qr-info {
-        margin-top: 15px;
-        font-size: 14px;
-        color: #555;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-    </style>
+   
   </head>
 
   <body>
@@ -170,10 +61,24 @@
                           name="registerName"
                           class="form-control"
                           id="registerName"
-                          placeholder="Nombre completo"
+                          placeholder="Nombre"
+                          placeholder="Apellido"
                           required
                         />
                       </div>
+
+                       <div class="form-group">
+                        <input
+                          type="text"
+                          name="registerName"
+                          class="form-control"
+                          id="registerName"
+                          placeholder="Apellido"
+                          placeholder="Apellido"
+                          required
+                        />
+                      </div>
+
 
                       <div class="form-group">
                         <input
@@ -405,6 +310,86 @@
           localStorage.setItem("userQR", qrData);
 
           alert("Cuenta registrada correctamente.");
+        });
+
+          // REGISTRO + QR
+
+        document.getElementById("registerForm")
+            .addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            let name =
+                document.getElementById("registerName").value.trim();
+
+            let email =
+                document.getElementById("registerEmail").value.trim();
+
+            let password =
+                document.getElementById("registerPassword").value;
+
+            let confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            let role =
+                document.getElementById("userType").value;
+
+            let tipoDoc =
+                document.getElementById("tipoDocumento").value;
+
+            let cedula =
+                document.getElementById("Cedula").value.trim();
+
+            if (!name || !email || !password || !confirmPassword
+                || !role || !tipoDoc || !cedula) {
+
+                alert("Completa todos los campos.");
+                return;
+
+            }
+
+            if (password !== confirmPassword) {
+
+                alert("Las contraseñas no coinciden.");
+                return;
+
+            }
+
+            // DATOS DEL QR
+
+            const qrData = `
+            LOG-IN USER
+            ------------------------
+            Nombre: ${name}
+            Correo: ${email}
+            Documento: ${tipoDoc}
+            Número: ${cedula}
+            Rol: ${role}
+            Registro: ${new Date().toLocaleString()}
+            `;
+
+            // MOSTRAR QR
+
+            document.getElementById("qrContainer")
+                .style.display = "block";
+
+            QRCode.toCanvas(
+                document.getElementById("qrCanvas"),
+                qrData,
+                {
+                    width: 280,
+                    margin: 2
+                }
+            );
+
+            // GUARDAR EN LOCALSTORAGE
+
+            localStorage.setItem("userName", name);
+            localStorage.setItem("userRole", role);
+            localStorage.setItem("userQR", qrData);
+
+            alert("Cuenta registrada correctamente.");
+
         });
     </script>
   </body>

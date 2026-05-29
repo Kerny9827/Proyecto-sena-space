@@ -5,11 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/icono3.png">
     <title>LOG-IN - Acceso</title>
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
     <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
@@ -37,12 +41,21 @@
                                     <button class="btn btn-success btn-lg btn-block" onclick="mostrarQR()">
                                         <i class="fas fa-qrcode"></i> Escanear Código QR
                                     </button>
+
+                                   
                                 </div>
                                 
                                 <div id="qr-container" style="display:none; margin-top:20px; text-align:center;">
                                     <h5 class="text-primary">Por favor, presente su código QR frente a la cámara</h5>
                                     <div id="reader" style="width:100%; max-width:300px; margin:auto;"></div>
                                     <div id="resultado" class="alert alert-info mt-3" style="display:none;"></div>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                 <br ><br>
+                                    <button class="btn btn-secondary btn-lg btn-block" onclick="window.location.href='Login.html'">
+                                        <i class="fas "></i> Volver al Login
+                                    </button>
                                 </div>
 
                                 <div id="acciones-acceso" style="display: none;" class="mt-4 animate__animated animate__fadeIn">

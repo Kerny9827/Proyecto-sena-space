@@ -244,7 +244,7 @@
 
 .linea-progreso-relleno {
     height: 100%;
-    background: linear-gradient(90deg, #00c851, #007e33);
+    background: linear-gradient(90deg, #236171, #5d5f5e);
     border-radius: 2px;
     transition: width 2s ease-in-out;
     box-shadow: 0 2px 10px rgba(0, 200, 81, 0.4);
@@ -608,3 +608,115 @@ body.page-404 {
     filter: drop-shadow(0 10px 20px rgba(0,0,0,.2));
 
 }
+
+
+      body {
+        background: linear-gradient(135deg, #2e302f, #2a4679);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+
+      .register-card {
+        border: none;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .left-panel {
+        background: #f8f9fc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+      }
+
+      .logo-large {
+        width: 220px;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .form-control,
+      .custom-select {
+        border-radius: 50px !important;
+        height: 52px;
+        padding-left: 20px;
+        border: 2px solid #e5e7eb;
+        transition: 0.3s;
+      }
+
+      .form-control:focus,
+      .custom-select:focus {
+        border-color: #2e8b57;
+        box-shadow: 0 0 10px rgba(46, 139, 87, 0.2);
+      }
+
+      .selected-box {
+        background: #e8fff1;
+        border-left: 5px solid #2e8b57;
+        padding: 12px 18px;
+        border-radius: 10px;
+        margin-top: 10px;
+        display: none;
+        font-weight: 600;
+        color: #2e8b57;
+      }
+
+      .btn-register {
+        border-radius: 50px;
+        height: 50px;
+        font-weight: bold;
+        font-size: 16px;
+        background: linear-gradient(135deg, #606863, #1e3c72);
+        border: none;
+        transition: 0.3s;
+      }
+
+      .btn-register:hover {
+        transform: translateY(-2px);
+        opacity: 0.95;
+      }
+
+      #qrContainer {
+        display: none;
+        margin-top: 30px;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
+      }
+
+      #qrContainer canvas {
+        background: white;
+        padding: 15px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .qr-info {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+   
