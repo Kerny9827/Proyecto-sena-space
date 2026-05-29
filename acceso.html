@@ -5,23 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Login LOG-IN">
-    <meta name="author" content="">
-    <link rel="icon" href="img/icono3.png">
     <title>LOG-IN - Acceso</title>
 
-    <!-- Custom fonts -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
-
-    <!-- Custom styles -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
 
-    <!-- Animaciones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-    <!-- Librería QR -->
     <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 
@@ -34,45 +23,43 @@
                 <div class="card-body p-0">
                     <div class="row">
 
-                        <div class="col-md-4 d-flex justify-content-center align-items-center"
-                             style="width: 40%; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5;">
-                            <a>
-                                <img src="img/fondo.png"
-                                     class="logo-large animate_animated animatepulse animate_infinite"
-                                     alt="Logo LOG-IN">
-                            </a>
+                        <div class="col-md-4 d-flex justify-content-center align-items-center" style="background-color: #f5f5f5;">
+                            <img src="img/fondo.png" class="img-fluid p-3" alt="Logo">
                         </div>
 
                         <div class="col-md-8">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">¡Bienvenido!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Control de Acceso QR</h1>
                                 </div>
 
-                                <form class="user" id="loginForm" action="login.php" method="post">
-                                    <div class="form-group">
-                                        
-                                    <!--OJO HACER CAMBIO DE HREF POR EL INSERT--><a type="button" class="btn btn-primary btn-user btn-block" href="Tables.html">
-                                        Ingreso
-                                        </a>
-                                    
-                                    <!--OJO HACER CAMBIO DE HREF POR EL INSERT--><a type="submit"  class="btn btn-primary btn-user btn-block" href="Register.html">
-                                        Salida
-                                    </a>
-                                
-                                    <br>
-
-                                <div class="text-center">
-                                    <h1><a class="btn" href="#" onclick="mostrarQR()">Escanear QR</a>
+                                <div class="text-center mb-4">
+                                    <button class="btn btn-success btn-lg btn-block" onclick="mostrarQR()">
+                                        <i class="fas fa-qrcode"></i> Escanear Código QR
+                                    </button>
                                 </div>
-                                </form>
                                 
-                                <!-- CONTENEDOR QR -->
                                 <div id="qr-container" style="display:none; margin-top:20px; text-align:center;">
-                                    <h5>Escanea tu código QR</h5>
-                                    <div id="reader" style="width:300px; margin:auto;"></div>
-                                    <p id="resultado"></p>
+                                    <h5 class="text-primary">Por favor, presente su código QR frente a la cámara</h5>
+                                    <div id="reader" style="width:100%; max-width:300px; margin:auto;"></div>
+                                    <div id="resultado" class="alert alert-info mt-3" style="display:none;"></div>
                                 </div>
+
+                                <div id="acciones-acceso" style="display: none;" class="mt-4 animate__animated animate__fadeIn">
+                                    <hr>
+                                    <h5 class="text-center text-gray-900 mb-3">Seleccione el Tipo de Registro:</h5>
+                                    <button type="button" class="btn btn-primary btn-user btn-block mb-2" onclick="registrarAcceso('ingreso')">
+                                        <i class="fas fa-sign-in-alt"></i> Registrar Ingreso
+                                    </button>
+                                    <button type="button" class="btn btn-secondary btn-user btn-block" onclick="registrarAcceso('salida')">
+                                        <i class="fas fa-sign-out-alt"></i> Registrar Salida
+                                    </button>
+                                </div>
+
+                                <form class="user d-none" id="loginForm" action="login.php" method="post">
+                                    <input type="hidden" id="loginEmail" value="">
+                                    <input type="hidden" id="loginPassword" value="">
+                                </form>
 
                             </div>
                         </div>
@@ -84,25 +71,17 @@
     </div>
 </div>
 
-<!-- VALIDACIÓN LOGIN -->
 <script>
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-    let email = document.getElementById("loginEmail").value.trim();
-    let password = document.getElementById("loginPassword").value.trim();
+let cedulaEscaneada = null;
+let scanner = null; // Guardar la instancia globalmente
 
-    if (!email || !password) {
-        e.preventDefault();
-        alert("Por favor completa correo y contraseña.");
-    }
-});
-</script>
-
-<!-- SCRIPT QR -->
-<script>
 function mostrarQR() {
+    // Mostrar contenedor del lector y ocultar acciones previas
     document.getElementById("qr-container").style.display = "block";
+    document.getElementById("acciones-acceso").style.display = "none";
+    document.getElementById("resultado").style.display = "none";
 
-    const scanner = new Html5Qrcode("reader");
+    scanner = new Html5Qrcode("reader");
 
     scanner.start(
         { facingMode: "environment" },
@@ -111,24 +90,65 @@ function mostrarQR() {
             qrbox: 250
         },
         (qrCodeMessage) => {
-            document.getElementById("resultado").innerText = "QR detectado: " + qrCodeMessage;
+            // Se asume que el QR es puramente el número de documento/cédula
+            cedulaEscaneada = qrCodeMessage.trim();
 
-            //  AUTO LLENAR EL CORREO (MEJORA PRO)
-            if (qrCodeMessage.includes("@")) {
-                document.getElementById("loginEmail").value = qrCodeMessage;
-            }
+            // Mostrar el resultado en pantalla
+            let resDiv = document.getElementById("resultado");
+            resDiv.innerText = "Documento detectado: " + cedulaEscaneada;
+            resDiv.style.display = "block";
 
-            //  REDIRECCIÓN SI ES LINK
-            if (qrCodeMessage.startsWith("http")) {
-                window.location.href = qrCodeMessage;
-            }
-
-            scanner.stop();
+            // Detener la cámara ya que obtuvimos el dato
+            scanner.stop().then(() => {
+                // Habilitar los botones de Ingreso/Salida
+                document.getElementById("acciones-acceso").style.display = "block";
+            }).catch(err => console.error("Error al detener el scanner", err));
         },
         (errorMessage) => {
-            // errores ignorados
+            // Errores de búsqueda de QR repetitivos (ignorar para no saturar la consola)
         }
-    );
+    ).catch(err => {
+        alert("No se pudo iniciar la cámara. Asegúrate de dar los permisos.");
+        console.error(err);
+    });
+}
+
+function registrarAcceso(tipo) {
+    if (!cedulaEscaneada) {
+        alert("Error: No hay datos de documento válidos.");
+        return;
+    }
+
+    // Enviamos los datos hacia insert_acceso.php
+    fetch('acceso.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'cedula=' + encodeURIComponent(cedulaEscaneada) + '&tipo=' + encodeURIComponent(tipo)
+    })
+    // Forzamos text() primero en caso de que tu PHP envíe un error de warning en texto antes del JSON
+    .then(response => response.text()) 
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            alert(data.message);
+            if (data.success) {
+                // Limpieza post-registro exitoso
+                cedulaEscaneada = null;
+                document.getElementById("resultado").style.display = "none";
+                document.getElementById("acciones-acceso").style.display = "none";
+                document.getElementById("qr-container").style.display = "none";
+            }
+        } catch (err) {
+            console.error("Respuesta no es JSON válido:", text);
+            alert("Error en la respuesta del servidor.");
+        }
+    })
+    .catch(error => {
+        console.error('Error en la petición Fetch:', error);
+        alert('Error de conexión al registrar el acceso.');
+    });
 }
 </script>
 
