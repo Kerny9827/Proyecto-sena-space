@@ -10,7 +10,7 @@
 
 /* Clases utilitarias */
 .bg-gradient-sena {
-    background: linear-gradient(180deg, var(--verde) 10%, var(--azul-oscuro) 100%) !important;
+        background: linear-gradient(90deg, #236171, #5d5f5e);
 }
 
 .logo-small {
@@ -21,7 +21,7 @@
 
 /* Sidebar con gradiente más elegante */
 .bg-gradient-primary {
-    background: linear-gradient(160deg, var(--verde) 0%, var(--azul-oscuro) 100%);
+    background: linear-gradient(90deg, #236171, #5d5f5e);
     box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
 }
 
@@ -194,7 +194,7 @@
 
 /* PERDIDA DE CONTRASEÑA */
 .body-forgot-password {
-    background-color: #496161;
+    background-color: #3881a1;
 }
 
 .logo-bounce {
@@ -220,7 +220,7 @@
 
 /* PROGRESS BAR */
 .fondo-progreso-carrera {
-    background: linear-gradient(180deg, var(--verde) 10%, var(--azul-oscuro) 100%);
+    background: linear-gradient(90deg, #236171, #5d5f5e);
     border-radius: 15px;
     padding: 30px;
     color: white;
@@ -238,7 +238,8 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(90deg, #236171, #5d5f5e);
+    
     border-radius: 2px;
 }
 
@@ -272,14 +273,14 @@
 }
 
 .circulo-progreso.completed {
-    background: linear-gradient(135deg, #00c851, #007e33);
+    background: linear-gradient(90deg, #00c851, #007e33);
     border-color: #00c851;
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(0, 200, 81, 0.4);
 }
 
 .circulo-progreso.current {
-    background: linear-gradient(135deg, #ffc107, #ff8f00);
+    background: linear-gradient(90deg, #ffc107, #ff8f00);
     border-color: #ffc107;
     animation: pulse 2s infinite;
     transform: scale(1.1);
@@ -405,7 +406,7 @@
 
 .logros-obtenidos2 {
     display: inline-block;
-    background: linear-gradient(135deg, var(--verde), var(--azul-oscuro));
+    background: linear-gradient(90deg, #236171, #5d5f5e);
     color: white;
     padding: 5px 12px;
     border-radius: 20px;
@@ -475,7 +476,7 @@ body.page-404 {
 .hero-section {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(160deg, var(--verde) 0%, var(--azul-oscuro) 100%);
+    background: linear-gradient(90deg, #236171, #5d5f5e);
     color: white;
     border-radius: 20px;
     padding: 70px 50px;
@@ -558,7 +559,7 @@ body.page-404 {
 }
 
 .weather-box {
-    background: linear-gradient(160deg, var(--verde), var(--azul-oscuro));
+    background: linear-gradient(90deg, #236171, #5d5f5e);
     color: white;
     border-radius: 20px;
     padding: 30px;
@@ -611,7 +612,7 @@ body.page-404 {
 
 
       body {
-        background: linear-gradient(135deg, #2e302f, #2a4679);
+        background: linear-gradient(90deg, #236171, #5d5f5e);
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -679,7 +680,7 @@ body.page-404 {
         height: 50px;
         font-weight: bold;
         font-size: 16px;
-        background: linear-gradient(135deg, #606863, #1e3c72);
+        background: linear-gradient(90deg, #236171, #5d5f5e);
         border: none;
         transition: 0.3s;
       }
@@ -720,3 +721,77 @@ body.page-404 {
         }
       }
    
+
+/* ==========================================================
+   ESTANDARIZACIÓN GENERAL DEL SISTEMA LOG-IN
+   Todas las vistas ocupan el ancho completo disponible
+   ========================================================== */
+
+html, body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+/* Contenedor principal */
+#wrapper{
+    display:flex;
+    width:100%;
+    min-height:100vh;
+}
+
+/* Área de contenido */
+#content-wrapper{
+    flex:1 !important;
+    width:100% !important;
+    min-height:100vh;
+}
+
+/* Contenido principal */
+#content{
+    width:100%;
+    flex:1;
+}
+
+/* Las páginas deben ocupar todo el ancho */
+.container,
+.container-fluid{
+    max-width:100% !important;
+}
+
+/* Tarjetas uniformes del dashboard */
+.card{
+    border-radius:14px;
+}
+
+/* Encabezados de módulos */
+.card-header{
+    font-weight:700;
+}
+
+/* Comentario:
+   Utilizar esta clase para futuros módulos visuales
+   y mantener una apariencia consistente en todo el sistema.
+*/
+.module-card{
+    min-height:320px;
+    border-radius:13px;
+}
+
+/* Contenedor superior del logo */
+.sidebar-brand{
+    height: 80px;
+}
+
+/* Imagen corporativa */
+.sidebar-brand-icon img{
+    width: 35px;
+    height: auto;
+    border-radius: 100%;
+    object-fit: contain;
+}
+
+/* Texto LOG-IN */
+.sidebar-brand-text{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
