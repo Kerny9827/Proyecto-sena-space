@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Préstamos y Solicitudes</title>
+
+    <link rel="icon" href="img/icono3.png">
+
+    <!-- Fonts -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+    <!-- Bootstrap / Theme -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- CSS del módulo -->
+    <link rel="stylesheet" href="modulo_recursos.css">
+
+    
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        <!-- SIDEBAR -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="home.html">
+
+                <div class="sidebar-brand-icon">
+                    <img src="img/fondo.png" width="45">
+                </div>
+
+                <div class="sidebar-brand-text mx-2">
+                    LOG-IN
+                </div>
+
+            </a>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Menú Principal
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="home.html">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="usuario.html">
+                    <i class="fas fa-fw fa-box-open"></i>
+                    <span>Recursos y préstamos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="recursos.html">
+                    <i class="fas fa-fw fa-boxes"></i>
+                    <span>Recursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="prestamos.html">
+                    <i class="fas fa-fw fa-handshake"></i>
+                    <span>Préstamos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="administrador.html">
+                    <i class="fas fa-fw fa-user-shield"></i>
+                    <span>Administrador de recursos</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Gráficos
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-bar"></i>
+                    <span>Ranking & linea de progreso</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Tables.html">
+                    <i class="fas fa-fw fa-project-diagram"></i>
+                    <span>RAPS</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Perfil y Configuración
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="buttons.html">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Configuración de cuenta</span>
+                </a>
+            </li>
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0"
+                    id="sidebarToggle">
+                </button>
+            </div>
+
+        </ul>
+
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <!-- TOPBAR -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop"
+                        class="btn btn-link d-md-none rounded-circle mr-3">
+
+                        <i class="fa fa-bars"></i>
+
+                    </button>
+
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+                        <div class="input-group">
+
+                            <input type="text"
+                                class="form-control bg-light border-0 small"
+                                placeholder="Buscar por..."
+                                aria-label="Search"
+                                aria-describedby="basic-addon2">
+
+                            <div class="input-group-append">
+
+                                <button class="btn btn-primary"
+                                    type="button">
+
+                                    <i class="fas fa-search fa-sm"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Búsqueda móvil -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="searchDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <i class="fas fa-search fa-fw"></i>
+
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+
+                                <form class="form-inline mr-auto w-100 navbar-search">
+
+                                    <div class="input-group">
+
+                                        <input type="text"
+                                            class="form-control bg-light border-0 small"
+                                            placeholder="Search for..."
+                                            aria-label="Search"
+                                            aria-describedby="basic-addon2">
+
+                                        <div class="input-group-append">
+
+                                            <button class="btn btn-primary"
+                                                type="button">
+
+                                                <i class="fas fa-search fa-sm"></i>
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </li>
+
+
+                        <!-- Notificaciones -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="alertsDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <i class="fas fa-bell fa-fw"></i>
+
+                                <span class="badge badge-danger badge-counter">
+                                    3+
+                                </span>
+
+                            </a>
+
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+
+                                <h6 class="dropdown-header"
+                                    style="background: linear-gradient(180deg,#2e8b57 10%,#1e3c72 100%);">
+                                    Notificaciones
+                                </h6>
+
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+
+                                    <div>
+
+                                        <div class="small text-gray-500">
+                                            December 12, 2019
+                                        </div>
+
+                                        <span class="font-weight-bold">
+                                            A new monthly report is ready to download!
+                                        </span>
+
+                                    </div>
+
+                                </a>
+
+                                <a class="dropdown-item text-center small text-gray-500"
+                                    href="#">
+                                    Mirar todas las Notificaciones
+                                </a>
+
+                            </div>
+
+                        </li>
+
+
+                        <!-- Mensajes -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="messagesDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <i class="fas fa-comment fa-fw"></i>
+
+                                <span class="badge badge-danger badge-counter">
+                                    7
+                                </span>
+
+                            </a>
+
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+
+                                <h6 class="dropdown-header"
+                                    style="background: linear-gradient(180deg,#2e8b57 10%,#1e3c72 100%);">
+                                    Centro de Mensajes
+                                </h6>
+
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="#">
+
+                                    <div class="dropdown-list-image mr-3">
+
+                                        <img class="rounded-circle"
+                                            src="img/undraw_profile_1.svg"
+                                            alt="...">
+
+                                        <div class="status-indicator bg-success"></div>
+
+                                    </div>
+
+                                    <div class="font-weight-bold">
+
+                                        <div class="text-truncate">
+                                            Hi there! I am wondering if you can help me with a problem I've been having.
+                                        </div>
+
+                                        <div class="small text-gray-500">
+                                            Emily Fowler · 58m
+                                        </div>
+
+                                    </div>
+
+                                </a>
+
+                                <a class="dropdown-item text-center small text-gray-500"
+                                    href="#">
+                                    Leer todos los Mensajes
+                                </a>
+
+                            </div>
+
+                        </li>
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+
+                        <!-- Usuario -->
+                        <li class="nav-item dropdown no-arrow">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="userDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    id="userNameTop">
+                                    Usuario
+                                </span>
+
+                                <img class="img-profile rounded-circle"
+                                    src="img/fondo.png"
+                                    width="45">
+
+                            </a>
+
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item"
+                                    href="charts.html">
+
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+
+                                </a>
+
+                                <a class="dropdown-item"
+                                    href="buttons.html">
+
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Ajustes
+
+                                </a>
+
+                                <a class="dropdown-item"
+                                    href="Login.html">
+
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Desconectar
+
+                                </a>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+                <!-- CONTENIDO -->
+                <div class="container-fluid">
+
+                    <header class="prestamos-header">
+
+                        <h1>🤝 Préstamos y Solicitudes</h1>
+
+                        <span class="badge">
+                            MÓDULO PRÉSTAMOS
+                        </span>
+
+                    </header>
+
+
+                    <!-- Navegación del módulo -->
+                    <nav class="prestamos-content-nav">
+
+                        <a href="recursos.html">
+                            📦 Recursos
+                        </a>
+
+                        <a class="active"
+                            href="prestamos.html">
+                            🤝 Préstamos
+                        </a>
+
+                        <a href="usuario.html">
+                            👤 Mi módulo
+                        </a>
+
+                      
+                    </nav>
+
+
+                    <main>
+
+                        <!-- Solicitud -->
+                        <div class="prestamos-panel">
+
+                            <h2>
+                                Solicitar objeto o servicio
+                            </h2>
+
+                            <div class="r-form">
+
+                                <label>
+
+                                    Recurso
+
+                                    <select id="recurso"></select>
+
+                                </label>
+
+
+                                <div class="r-row">
+
+                                    <label>
+
+                                        Fecha de inicio
+
+                                        <input id="inicio"
+                                            type="date">
+
+                                    </label>
+
+
+                                    <label>
+
+                                        Fecha de devolución / cierre
+
+                                        <input id="fin"
+                                            type="date">
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="r-alert"
+                                    id="disp">
+
+                                    Selecciona recurso y fechas para verificar disponibilidad.
+
+                                </div>
+
+
+                                <label>
+
+                                    Cantidad
+
+                                    <input id="cantidad"
+                                        type="number"
+                                        min="1"
+                                        value="1">
+
+                                </label>
+
+
+                                <label>
+
+                                    Motivo / observación
+
+                                    <textarea id="obs"
+                                        rows="3"
+                                        placeholder="Indica para qué necesitas el recurso o servicio"></textarea>
+
+                                </label>
+
+
+                                <div>
+
+                                    <button class="r-btn r-primary"
+                                        id="enviar"
+                                        onclick="crear()">
+
+                                        Enviar solicitud
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Mis solicitudes -->
+                        <h2 class="prestamos-main-title">
+                            Mis solicitudes
+                        </h2>
+
+
+                        <div class="prestamos-panel prestamos-table-panel">
+
+                            <table class="r-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Recurso
+                                        </th>
+
+                                        <th>
+                                            Fechas
+                                        </th>
+
+                                        <th>
+                                            Cantidad
+                                        </th>
+
+                                        <th>
+                                            Estado
+                                        </th>
+
+                                        <th>
+                                            Observación
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="mis"></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </main>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <footer class="sticky-footer bg-white">
+
+                <div class="container my-auto">
+
+                    <div class="copyright text-center my-auto">
+
+                        <span>
+                            Copyright © LOG-IN 2026
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTÓN SUBIR -->
+    <a href="#page-top"
+        class="floating-btn">
+
+        <i class="fas fa-arrow-up"></i>
+
+    </a>
+
+
+    <!-- SCRIPTS  PARA UBICAR DONDE CORRESPONDE -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+
+
+    <!-- FUNCIONALIDAD ORIGINAL -->
+    <script>
+
+        const $ = id => document.getElementById(id);
+
+        let recursos = [];
+
+
+        function api(a, extra = {}) {
+
+            let f = new FormData();
+
+            f.append('accion', a);
+
+            Object.entries(extra).forEach(([k, v]) =>
+                f.append(k, v)
+            );
+
+            return fetch('recursos_api.php', {
+                method: 'POST',
+                body: f
+            }).then(r => r.json());
+
+        }
+
+
+        function cargar() {
+
+            api('listar_recursos').then(r => {
+
+                if (!r.success)
+                    return alert(r.message);
+
+                recursos = r.data;
+
+                $('recurso').innerHTML =
+                    recursos.map(x =>
+                        `<option value="${x.id}">
+                            ${x.nombre} — ${x.tipo}
+                        </option>`
+                    ).join('');
+
+
+                let id =
+                    new URLSearchParams(location.search)
+                        .get('recurso');
+
+
+                if (id)
+                    $('recurso').value = id;
+
+
+                verificar();
+
+            });
+
+        }
+
+
+        function verificar() {
+
+            let a = $('inicio').value,
+                b = $('fin').value,
+                id = $('recurso').value;
+
+
+            if (!a || !b || !id)
+                return;
+
+
+            if (a > b) {
+
+                $('disp').innerHTML =
+                    '⚠️ La fecha de inicio no puede ser posterior a la devolución.';
+
+                return;
+
+            }
+
+
+            api('verificar_disponibilidad', {
+
+                recurso_id: id,
+                fecha_inicio: a,
+                fecha_devolucion: b
+
+            }).then(r => {
+
+                if (!r.success) {
+
+                    $('disp').textContent =
+                        r.message;
+
+                    return;
+
+                }
+
+
+                $('disp').innerHTML =
+                    `Stock total: <b>${r.data.stock_total}</b> · Ocupados: <b>${r.data.ocupados}</b> · Disponibles: <b>${r.data.disponibles}</b>`;
+
+
+                $('cantidad').max =
+                    r.data.disponibles;
+
+
+                $('enviar').disabled =
+                    r.data.disponibles < 1;
+
+            });
+
+        }
+
+
+        function crear() {
+
+            api('crear_solicitud', {
+
+                recurso_id:
+                    $('recurso').value,
+
+                fecha_inicio:
+                    $('inicio').value,
+
+                fecha_devolucion:
+                    $('fin').value,
+
+                cantidad:
+                    $('cantidad').value,
+
+                observacion:
+                    $('obs').value
+
+            }).then(r => {
+
+                alert(r.message);
+
+
+                if (r.success) {
+
+                    $('obs').value = '';
+
+                    mis();
+
+                }
+
+            });
+
+        }
+
+
+        function mis() {
+
+            api('mis_solicitudes').then(r => {
+
+                if (!r.success)
+                    return;
+
+
+                $('mis').innerHTML =
+
+                    r.data.map(x => `<tr>
+
+                        <td>
+                            <b>${x.recurso_nombre}</b>
+                            <div class="r-mini">
+                                ${x.tipo}
+                            </div>
+                        </td>
+
+                        <td>
+                            ${x.fecha_inicio}
+                            →
+                            ${x.fecha_devolucion}
+                        </td>
+
+                        <td>
+                            ${x.cantidad}
+                        </td>
+
+                        <td>
+
+                            <span class="r-status ${
+                                x.estado === 'Aprobado'
+                                    ? 'r-approved'
+                                    : x.estado === 'Rechazado'
+                                    ? 'r-rejected'
+                                    : x.estado === 'Devuelto'
+                                    ? 'r-returned'
+                                    : 'r-pending'
+                            }">
+
+                                ${x.estado}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+                            ${x.observacion || '—'}
+                        </td>
+
+                    </tr>`).join('')
+
+                    ||
+
+                    '<tr><td colspan="5" class="r-empty">No tienes solicitudes.</td></tr>';
+
+            });
+
+        }
+
+
+        $('recurso').onchange =
+            verificar;
+
+        $('inicio').onchange =
+            verificar;
+
+        $('fin').onchange =
+            verificar;
+
+
+        let t =
+            new Date()
+                .toISOString()
+                .slice(0, 10);
+
+
+        $('inicio').min = t;
+
+        $('fin').min = t;
+
+
+        cargar();
+
+        mis();
+
+        setInterval(mis, 7000);
+
+
+        /* Usuario */
+        let name =
+            localStorage.getItem("userName");
+
+
+        if (name) {
+
+            const userNameTop =
+                document.getElementById("userNameTop");
+
+            if (userNameTop)
+                userNameTop.textContent = name;
+
+        }
+
+    </script>
+
+</body>
+
+</html>
