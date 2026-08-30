@@ -174,6 +174,20 @@
                         </select>
 
                         <div id="selectedUserType" class="selected-box"></div>
+
+                        <!--
+                          ID NUMÉRICO DEL ROL:
+                          Aprendiz = 1
+                          Instructor = 2
+                          Seguridad = 3
+                          Cafetería = 4
+                          Visitante = 5
+
+                          JavaScript coloca aquí el ID correspondiente.
+                          PHP debe volver a validar esta relación antes de
+                          guardar el usuario en la base de datos.
+                        -->
+                        <input type="hidden" id="rol_id" name="rol_id" value="" />
                       </div>
 
                       <button
@@ -222,12 +236,32 @@
       const userType = document.getElementById("userType");
       const selectedUserType = document.getElementById("selectedUserType");
 
+      // ============================================
+      // ASIGNACIÓN NUMÉRICA DE ROLES
+      // ============================================
+      // El HTML envía el nombre del rol y también su ID.
+      // PHP debe validar nuevamente esta relación antes
+      // de guardar el dato en la base de datos.
+      const roles = {
+        "Aprendiz": 1,
+        "Instructor": 2,
+        "Seguridad": 3,
+        "Cafetería": 4,
+        "Visitante": 5
+      };
+
       userType.addEventListener("change", function () {
         selectedUserType.style.display = "block";
 
+        const rolId = roles[this.value] || "";
+
+        // Guardamos temporalmente el número correspondiente al rol.
+        document.getElementById("rol_id").value = rolId;
+
         selectedUserType.innerHTML = `<i class="fas fa-check-circle"></i>
                 Rol seleccionado:
-                <b>${this.value}</b>`;
+                <b>${this.value}</b>
+                <span class="ml-2">(ID: ${rolId})</span>`;
       });
 
       const tipoDocumento = document.getElementById("tipoDocumento");
@@ -247,8 +281,8 @@
           e.preventDefault();
 
           let name = document.getElementById("registerName").value.trim();
-
           let lastName = document.getElementById("registerLastName").value.trim();
+          let fullName = name + ' ' + lastName;
 
           let email = document.getElementById("registerEmail").value.trim();
 
@@ -258,6 +292,7 @@
             document.getElementById("confirmPassword").value;
 
           let role = document.getElementById("userType").value;
+          let rolId = document.getElementById("rol_id").value;
 
           let tipoDoc = document.getElementById("tipoDocumento").value;
 
@@ -289,8 +324,7 @@
           const qrData = `
             LOG-IN USER
             ------------------------
-            Nombre: ${name}
-            Apellido: ${lastName}
+            Nombre: ${fullName}
             Correo: ${email}
             Documento: ${tipoDoc}
             Número: ${cedula}
@@ -307,12 +341,11 @@
             margin: 2,
           });
 
-          localStorage.setItem("userName", name);
-          localStorage.setItem("userLastName", lastName);
+          localStorage.setItem("userName", fullName);
           localStorage.setItem("userRole", role);
           localStorage.setItem("userQR", qrData);
 
-          
+          alert("Cuenta registrada correctamente.");
         });
 
           // REGISTRO + QR
@@ -324,9 +357,6 @@
 
             let name =
                 document.getElementById("registerName").value.trim();
-
-            let lastName =
-                document.getElementById("registerLastName").value.trim();
 
             let email =
                 document.getElementById("registerEmail").value.trim();
@@ -367,7 +397,6 @@
             LOG-IN USER
             ------------------------
             Nombre: ${name}
-            Apellido: ${lastName}
             Correo: ${email}
             Documento: ${tipoDoc}
             Número: ${cedula}
@@ -392,9 +421,10 @@
             // GUARDAR EN LOCALSTORAGE
 
             localStorage.setItem("userName", name);
-            localStorage.setItem("userLastName", lastName);
             localStorage.setItem("userRole", role);
             localStorage.setItem("userQR", qrData);
+
+            alert("Cuenta registrada correctamente.");
 
         });
     </script>
