@@ -407,6 +407,98 @@
         <span class="badge">MÓDULO ADMINISTRADOR</span>
     </header>
 
+<!-- Botón y formulario formal para Nueva Solicitud-->
+<div class="mb-3">
+    <button id="btnNuevaSolicitud" class="btn btn-primary shadow-sm" onclick="abrirFormNuevaSolicitud()">
+        <i class="fas fa-plus-circle mr-1"></i> Solicitud de    implementos Almacén
+    </button>
+</div>
+
+<div id="formNuevaSolicitud" class="card shadow mb-4 d-none border-left-primary">
+    <div class="card-header py-3 bg-white">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas file-alt mr-2"></i>Módulo de Solicitudes - Institucional</h6>
+    </div>
+    <div class="card-body">
+        <form onsubmit="guardarNuevaSolicitud(event)" enctype="multipart/form-data">
+            
+            <!-- Fila 1: Recurso y Tipo de Solicitud -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold text-dark">Recurso / Material requerido <span class="text-danger">*</span></label>
+                    <select id="nsRecurso" class="form-control" required>
+                        
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold text-dark">Tipo de Solicitud <span class="text-danger">*</span></label>
+                    <select id="nsTipo" class="form-control" required>
+                        <option value="">Seleccione la categoría...</option>
+                        <option value="Evento / Actividad">Evento / Actividad institucional</option>
+                        <option value="Logística / Soporte">Apoyo logístico</option>
+                        <option value="Materiales / Insumos">Suministros y materiales</option>
+                        <option value="Préstamo institucional">Préstamo de espacios o equipos</option>
+                        <option value="Otro">Otro requerimiento</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Fila 2: Cantidad y Prioridad -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold text-dark">Cantidad <span class="text-danger">*</span></label>
+                    <input id="nsCantidad" type="number" min="1" value="1" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="font-weight-bold text-dark">Nivel de Prioridad <span class="text-danger">*</span></label>
+                    <select id="nsPrioridad" class="form-control" required>
+                        <option value="Normal">Normal</option>
+                        <option value="Urgente">Urgente</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Fila 3: Observación o Justificación -->
+            <div class="form-group">
+                <label class="font-weight-bold text-dark">Justificación / Motivo de la solicitud <span class="text-danger">*</span></label>
+                <textarea id="nsObservacion" class="form-control" placeholder="Describa detalladamente el propósito de esta solicitud..." rows="3" required></textarea>
+            </div>
+
+            <!-- Fila 4: Adjuntar Documentación / Archivo de Soporte -->
+            <div class="form-group">
+                <label class="font-weight-bold text-dark">Documentación de respaldo / Soporte (PDF, Imagen, etc.)</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="nsArchivo">
+                    <label class="custom-file-label" for="nsArchivo" id="nsArchivoLabel">Seleccionar archivo adjunto...</label>
+                </div>
+                <small class="form-text text-muted">Adjunte cotizaciones, oficios o memorandos si aplican para la solicitud.</small>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="form-group mt-4 pt-2 border-top">
+                <button type="submit" class="btn btn-success shadow-sm">
+                    <i class="fas fa-check-circle mr-1"></i> Enviar solicitud
+                </button>
+                <button type="button" class="btn btn-secondary ml-2" onclick="cerrarFormNuevaSolicitud()">
+                    <i class="fas fa-times mr-1"></i> Cancelar
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Script para actualizar el texto del archivo seleccionado dinámicamente -->
+<script>
+    document.addEventListener('change', function(e) {
+        if(e.target && e.target.id === 'nsArchivo') {
+            let fileName = e.target.files[0] ? e.target.files[0].name : 'Seleccionar archivo adjunto...';
+            let label = document.getElementById('nsArchivoLabel');
+            if(label) label.textContent = fileName;
+        }
+    });
+</script>
+
     <nav class="prestamos-content-nav" id="tabs">
         <a class="active" data-target="dashboard">📊 Dashboard</a>
         <a data-target="solicitudes">📋 Solicitudes</a>
@@ -1136,7 +1228,124 @@ if (name) {
 }
 </script>
 
+<script>
+// --- 1. ABRIR NUEVA SOLICITUD ---
+function abrirFormNuevaSolicitud() {
+    const form = document.getElementById('formNuevaSolicitud');
+    if (!form) return;
+    
+    // Muestra el formulario quitando la clase de ocultar
+    form.classList.remove('d-none');
+    
+    // Carga los recursos disponibles en el desplegable
+    const select = document.getElementById('nsRecurso');
+    if (select) {
+        select.innerHTML = '<option value="">Cargando recursos...</option>';
+        
+        let listaRecursos = [];
+        if (typeof DATA !== 'undefined' && DATA.recursos) {
+            listaRecursos = DATA.recursos;
+        } else if (window.DATA && window.DATA.recursos) {
+            listaRecursos = window.DATA.recursos;
+        }
+
+        if (listaRecursos.length > 0) {
+            const recursosDisponibles = listaRecursos.filter(r => {
+                const estado = r.estado || r.status || '';
+                return estado.toLowerCase() !== 'baja';
+            });
+            
+            if (recursosDisponibles.length > 0) {
+                select.innerHTML = '<option value="">Seleccione un recurso...</option>' + recursosDisponibles.map(r => {
+                    const id = r.id || r.codigo || r.recurso_id;
+                    const nombre = r.nombre || r.descripcion || 'Recurso';
+                    const stock = r.stock_total !== undefined ? r.stock_total : (r.stock !== undefined ? r.stock : '');
+                    return `<option value="${id}">${nombre} ${stock !== '' ? '(Disponible: ' + stock + ')' : ''}</option>`;
+                }).join('');
+            } else {
+                select.innerHTML = '<option value="">No hay recursos disponibles</option>';
+            }
+        } else {
+            select.innerHTML = '<option value="">No hay recursos en memoria</option>';
+        }
+    }
+
+    // Limpiar o resetear los campos del formulario al abrir
+    const selectTipo = document.getElementById('nsTipo');
+    if (selectTipo) selectTipo.value = '';
+
+    const inputCantidad = document.getElementById('nsCantidad');
+    if (inputCantidad) inputCantidad.value = 1;
+
+    const selectPrioridad = document.getElementById('nsPrioridad');
+    if (selectPrioridad) selectPrioridad.value = 'Normal';
+
+    const textObservacion = document.getElementById('nsObservacion');
+    if (textObservacion) textObservacion.value = '';
+    
+    const inputArchivo = document.getElementById('nsArchivo');
+    if (inputArchivo) inputArchivo.value = '';
+    
+    const labelArchivo = document.getElementById('nsArchivoLabel');
+    if (labelArchivo) labelArchivo.textContent = 'Seleccionar archivo adjunto...';
+
+    // Desplazar la vista suavemente hacia el formulario
+    form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// --- 2. CERRAR / CANCELAR ---
+function cerrarFormNuevaSolicitud() {
+    const form = document.getElementById('formNuevaSolicitud');
+    if (form) {
+        form.classList.add('d-none');
+    }
+}
+
+// --- 3. ENVIAR DATOS AL SERVIDOR ---
+function guardarNuevaSolicitud(event) {
+    if (event) event.preventDefault();
+
+    // Capturar los valores de los campos formales
+    const recursoId = document.getElementById('nsRecurso').value;
+    const tipo = document.getElementById('nsTipo') ? document.getElementById('nsTipo').value : '';
+    const cantidad = document.getElementById('nsCantidad').value;
+    const prioridad = document.getElementById('nsPrioridad') ? document.getElementById('nsPrioridad').value : 'Normal';
+    const observacion = document.getElementById('nsObservacion').value.trim();
+    
+    // Capturar archivo opcional si existe
+    const archivoInput = document.getElementById('nsArchivo');
+    const archivo = archivoInput && archivoInput.files[0] ? archivoInput.files[0] : null;
+
+    if (!recursoId) {
+        alert('Por favor selecciona un recurso válido.');
+        return;
+    }
+
+    // Estructura de datos para enviar a tu backend (recursos.php)
+    const payload = {
+        recurso_id: recursoId,
+        tipo_solicitud: tipo,
+        cantidad: cantidad,
+        prioridad: prioridad,
+        observacion: observacion || 'Solicitud generada por el usuario.',
+        tiene_archivo: archivo ? true : false,
+        nombre_archivo: archivo ? archivo.name : null
+    };
+
+    if (typeof api === 'function') {
+        api('crear_solicitud', payload, r => {
+            alert(r.message || (r.success ? 'Solicitud enviada con éxito.' : 'Error al enviar la solicitud.'));
+            if (r.success) {
+                cerrarFormNuevaSolicitud();
+                if (typeof load === 'function') load();
+            }
+        });
+    } else {
+        alert('Error: La función api no está disponible.');
+    }
+}
+</script>
+
 </body>
 </html>
-
 
