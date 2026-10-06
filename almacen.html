@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Almacén y Solicitudes - LOG-IN</title>
+    <link rel="icon" href="img/icono3.png">
+
+    <!-- Fuentes y Estilos Base -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="modulo_recursos.css">
+</head>
+
+<body id="page-top">
+
+    <!-- CONTENEDOR PRINCIPAL DEL SISTEMA -->
+    <div id="wrapper">
+
+        
+        <!-- BARRA LATERAL (SIDEBAR DE NAVEGACIÓN)      -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="home.html">
+                <div class="sidebar-brand-icon"><img src="img/fondo.png" width="45"></div>
+                <div class="sidebar-brand-text mx-2">LOG-IN</div>
+            </a>
+
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Menú Principal</div>
+
+            <li class="nav-item"><a class="nav-link" href="home.html"><i class="fas fa-fw fa-home"></i><span>Inicio</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="usuario.html"><i class="fas fa-fw fa-box-open"></i><span>Recursos y préstamos</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="administrador.html"><i class="fas fa-fw fa-user-shield"></i><span>Administrador de recursos</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="recursos.html"><i class="fas fa-fw fa-boxes"></i><span>Recursos</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="prestamos.html"><i class="fas fa-fw fa-handshake"></i><span>Préstamos</span></a></li>
+            <li class="nav-item active"><a class="nav-link" href="almacen.html"><i class="fas fa-fw fa-boxes"></i><span>Solicitud de Almacén</span></a></li>
+
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Configuración</div>
+            <li class="nav-item"><a class="nav-link" href="buttons.html"><i class="fas fa-fw fa-book"></i><span>Ajustes de cuenta</span></a></li>
+
+            <div class="text-center d-none d-md-inline"><button class="rounded-circle border-0" id="sidebarToggle"></button></div>
+        </ul>
+
+        <!-- CONTENEDOR DE CONTENIDO -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                
+                <!-- TOPBAR / BARRA SUPERIOR -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3"><i class="fa fa-bars"></i></button>
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar por..." aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button"><i class="fas fa-search fa-sm"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="userNameTop">Usuario</span>
+                                <img class="img-profile rounded-circle" src="img/fondo.png" width="45">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                                <a class="dropdown-item" href="Login.html"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Desconectar</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- CONTENEDOR FLUIDO PRINCIPAL -->
+                <div class="container-fluid">
+
+                    <!-- ENCABEZADO DEL MÓDULO -->
+                    <header class="prestamos-header">
+                        <h1>📦 Módulo Central de Almacén y Solicitudes</h1>
+                        <span class="badge">CONTROL DE INVENTARIO Y BIENESTAR</span>
+                    </header>
+
+                    <!-- ========================================== -->
+                    <!-- NAVEGACIÓN POR PESTAÑAS (ORDEN ESTRICTO)   -->
+                    <!-- ========================================== -->
+                    <nav class="prestamos-content-nav" id="tabs">
+                        <a class="active" data-target="dashboard">📊 Dashboard</a>
+                        <a data-target="crear-solicitud">➕ Solicitar a Almacén</a>
+                        <a data-target="solicitudes">📋 Bandeja de Solicitudes</a>
+                        <a data-target="inventario">🗃️ Inventario & Almacén</a>
+                        <a data-target="historial">📜 Historial</a>
+                    </nav>
+
+                    <main>
+                        <!-- PESTAÑA 1: DASHBOARD GENERAL -->
+                        <section id="dashboard" class="view">
+                            <div class="row">
+                                <div class="col-md-3 mb-4">
+                                    <div class="card shadow h-100 border-left-warning">
+                                        <div class="card-body">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Solicitudes Pendientes</div>
+                                            <div id="kPend" class="h3 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-4">
+                                    <div class="card shadow h-100 border-left-success">
+                                        <div class="card-body">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Aprobados / Activos</div>
+                                            <div id="kActive" class="h3 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-4">
+                                    <div class="card shadow h-100 border-left-info">
+                                        <div class="card-body">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Referencias</div>
+                                            <div id="kTotalRecursos" class="h3 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-4">
+                                    <div class="card shadow h-100 border-left-danger">
+                                        <div class="card-body">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Stock Bajo</div>
+                                            <div id="kLow" class="h3 mb-0 font-weight-bold text-gray-800">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="prestamos-panel">
+                                <h2>Atención Requerida</h2>
+                                <div id="attention" class="r-alert">Cargando estado del sistema...</div>
+                            </div>
+                        </section>
+
+                        <!-- PESTAÑA 2: SOLICITAR A ALMACÉN (FORMULARIO / CHECKLIST INDIVIDUAL + TIPO DE APOYO) -->
+                        <section id="crear-solicitud" class="view d-none">
+                            <div class="prestamos-panel">
+                                <div class="mb-4">
+                                    <h2 class="mb-1">Solicitud de Ítem a Almacén (Bienestar)</h2>
+                                    <span class="r-mini">Seleccione un elemento del inventario e indique el tipo de apoyo requerido.</span>
+                                </div>
+
+                                <!-- Formulario conectado al API para envío individual -->
+                                <form onsubmit="enviarSolicitudIndividual(event)">
+                                    <div class="row">
+                                        <!-- Checklist dinámico de inventario -->
+                                        <div class="col-md-6 mb-3">
+                                            <label class="font-weight-bold text-gray-700">Seleccionar Recurso *</label>
+                                            <div id="checklistIndividual" style="max-height: 250px; overflow-y: auto; border: 1px solid #d1d3e2; border-radius: 0.35rem; padding: 12px; background: #fff;">
+                                                <span class="text-muted small">Cargando inventario disponible...</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label class="font-weight-bold text-gray-700">Cantidad *</label>
+                                                    <input id="subCantidad" type="number" min="1" value="1" class="form-control" required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="font-weight-bold text-gray-700">Tipo de Apoyo *</label>
+                                                    <select id="subTipoApoyo" class="form-control" required>
+                                                        <option value="Apoyo Logístico">Apoyo Logístico</option>
+                                                        <option value="Apoyo de Actividad">Apoyo de Actividad</option>
+                                                        <option value="Préstamo Académico">Préstamo Académico</option>
+                                                        <option value="Uso Institucional">Uso Institucional</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label class="font-weight-bold text-gray-700">Prioridad</label>
+                                                    <select id="subPrioridad" class="form-control">
+                                                        <option value="Normal">Normal</option>
+                                                        <option value="Urgente">Urgente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="font-weight-bold text-gray-700">Motivo / Destino institucional *</label>
+                                                <textarea id="subObservacion" class="form-control" rows="3" placeholder="Ej. Jornada deportiva institucional..." required></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Carga de archivos adjuntos (PDF, Word, Imagen) -->
+                                        <div class="col-12 mb-3">
+                                            <label class="font-weight-bold text-gray-700">Documento o Soporte Adjunto (PDF, Word, Imagen)</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="subArchivo" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+                                                <label class="custom-file-label" id="subArchivoLabel" for="subArchivo">Seleccionar archivo adjunto...</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <button type="submit" class="r-btn r-primary px-4 font-weight-bold">
+                                            <i class="fas fa-paperplane mr-1"></i> Transmitir Solicitud
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+
+                        <!-- PESTAÑA 3: BANDEJA DE SOLICITUDES (VISTA DE ALMACÉN) -->
+                        <section id="solicitudes" class="view d-none">
+                            <div class="prestamos-panel prestamos-table-panel">
+                                <div class="p-3 d-flex justify-content-between align-items-center flex-wrap">
+                                    <div>
+                                        <h2 class="mb-0">Bandeja de Solicitudes (Almacén)</h2>
+                                        <span class="r-mini">Gestione, verifique stock y apruebe las solicitudes entrantes.</span>
+                                    </div>
+                                    <input id="qSolicitudes" class="form-control w-50 mt-2 mt-md-0" placeholder="Buscar solicitud..." oninput="renderSolicitudes()">
+                                </div>
+                                <table class="r-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Solicitante / Fecha</th>
+                                            <th>Ítem Solicitado</th>
+                                            <th>Cant.</th>
+                                            <th>Tipo de Apoyo</th>
+                                            <th>Observación / Soporte</th>
+                                            <th>Acción de Almacén</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblSolicitudes"></tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- PESTAÑA 4: INVENTARIO & ALMACÉN -->
+                        <section id="inventario" class="view d-none">
+                            <div class="prestamos-panel prestamos-table-panel">
+                                <div class="p-3 d-flex justify-content-between align-items-center">
+                                    <h2 class="mb-0">Inventario / Almacén</h2>
+                                    <button id="btnNuevoRecurso" class="r-btn r-primary" onclick="nuevoRecurso()">+ Nuevo recurso</button>
+                                </div>
+
+                                <!-- Formulario desplegable para registrar nuevo recurso -->
+                                <div id="formNuevoRecurso" class="prestamos-panel d-none" style="margin: 0 15px 20px 15px;">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h2 class="mb-1">Registrar nuevo recurso</h2>
+                                        <button type="button" class="btn btn-light btn-sm" onclick="cerrarNuevoRecurso()"><i class="fas fa-times"></i></button>
+                                    </div>
+
+                                    <form onsubmit="guardarNuevoRecurso(event)">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="font-weight-bold">Nombre del recurso *</label>
+                                                <input id="nrNombre" type="text" class="form-control" placeholder="Ej. Balón" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="font-weight-bold">Categoría *</label>
+                                                <input id="nrCategoria" type="text" class="form-control" placeholder="Ej. Deportes" required>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="font-weight-bold">Tipo *</label>
+                                                <select id="nrTipo" class="form-control" required>
+                                                    <option value="Objeto">Objeto</option>
+                                                    <option value="Servicio">Servicio</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="font-weight-bold">Stock total *</label>
+                                                <input id="nrStock" type="number" min="0" value="1" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="font-weight-bold">Stock mínimo *</label>
+                                                <input id="nrMinimo" type="number" min="0" value="1" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-light mr-2" onclick="cerrarNuevoRecurso()">Cancelar</button>
+                                            <button type="submit" class="r-btn r-primary"><i class="fas fa-save mr-1"></i> Guardar recurso</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <table class="r-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Categoría</th>
+                                            <th>Tipo</th>
+                                            <th>Stock</th>
+                                            <th>Mínimo</th>
+                                            <th>Estado</th>
+                                            <th>Reposición</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblInventario"></tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- PESTAÑA 5: HISTORIAL DE MOVIMIENTOS -->
+                        <section id="historial" class="view d-none">
+                            <div class="prestamos-panel prestamos-table-panel">
+                                <div class="p-3"><h2 class="mb-0">Historial de movimientos y auditoría</h2></div>
+                                <table class="r-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Actor</th>
+                                            <th>Acción</th>
+                                            <th>Detalle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tblHistorial"></tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </main>
+                </div>
+            </div>
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © LOG-IN 2026</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODAL DE AUDITORÍA Y RESPUESTA (ALMACÉN) -->
+    <div class="modal fade" id="modalDetalleSolicitud" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title font-weight-bold"><i class="fas fa-clipboard-list mr-2"></i> Auditoría y Respuesta de Solicitud</h5>
+                    <button class="close text-white" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <input id="detalleSolicitudId" type="hidden">
+                    <div class="mb-3 p-3 bg-light rounded border">
+                        <h6 class="font-weight-bold text-dark mb-1" id="detSolicitante">Solicitante: —</h6>
+                        <p class="text-muted small mb-1" id="detFecha">Fecha: —</p>
+                        <p class="text-dark mb-0 font-weight-bold" id="detTipoApoyo">Tipo de Apoyo: —</p>
+                        <p class="text-dark mb-0 font-weight-bold" id="detMotivo">Motivo: —</p>
+                    </div>
+
+                    <h6 class="font-weight-bold text-gray-800 mb-2">Verificación de Disponibilidad en Inventario:</h6>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-bordered table-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th>Recurso</th>
+                                    <th>Cant. Solicitada</th>
+                                    <th>Stock Actual en Almacén</th>
+                                    <th>Estado de Disponibilidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblDetalleItems"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="font-weight-bold text-gray-700">Observación / Respuesta de Almacén:</label>
+                        <textarea id="detObservacionRespuesta" class="form-control" rows="3" placeholder="Escriba el motivo de aprobación o denegación..."></textarea>
+                    </div>
+
+                    <div class="modal-footer px-0 pb-0">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-danger font-weight-bold" onclick="procesarRespuestaAlmacén('rechazar')">
+                            <i class="fas fa-times mr-1"></i> Rechazar Solicitud
+                        </button>
+                        <button type="button" class="btn btn-success font-weight-bold" onclick="procesarRespuestaAlmacén('aprobar')">
+                            <i class="fas fa-check mr-1"></i> Aprobar Préstamo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL EDICIÓN RECURSO -->
+    <div class="modal fade" id="modalRecurso" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Recurso</h5>
+                    <button class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <input id="rid" type="hidden">
+                    <label class="font-weight-bold text-gray-700">Nombre</label>
+                    <input id="rnombre" class="form-control mb-3">
+                    <label class="font-weight-bold text-gray-700">Categoría</label>
+                    <input id="rcat" class="form-control mb-3">
+                    <label class="font-weight-bold text-gray-700">Tipo</label>
+                    <select id="rtipo" class="form-control mb-3">
+                        <option>Objeto</option>
+                        <option>Servicio</option>
+                    </select>
+                    <label class="font-weight-bold text-gray-700">Stock total</label>
+                    <input id="rstock" type="number" min="0" class="form-control mb-3">
+                    <label class="font-weight-bold text-gray-700">Stock mínimo</label>
+                    <input id="rmin" type="number" min="0" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button class="r-btn r-primary" onclick="guardarRecurso()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        let DATA = {};
+        let selectedId = null;
+        const $ = id => document.getElementById(id);
+
+        // Control visual del nombre del archivo adjunto seleccionado
+        document.addEventListener('change', function(e) {
+            if(e.target && e.target.id === 'subArchivo') {
+                let fileName = e.target.files[0] ? e.target.files[0].name : 'Seleccionar archivo adjunto...';
+                let label = document.getElementById('subArchivoLabel');
+                if(label) label.textContent = fileName;
+            }
+        });
+
+        // Carga inicial de datos conectada al backend vía API
+        function load() {
+            api('admin_dashboard', {}, r => {
+                if (!r.success) {
+                    console.warn(r.message || 'Acceso denegado');
+                    return;
+                }
+                DATA = r.data || {};
+                renderAll();
+            });
+        }
+
+        // Cambio dinámico entre pestañas del módulo
+        document.querySelectorAll('#tabs a').forEach(a => {
+            a.onclick = () => {
+                document.querySelectorAll('#tabs a').forEach(x => x.classList.remove('active'));
+                document.querySelectorAll('.view').forEach(x => x.classList.add('d-none'));
+                a.classList.add('active');
+                const el = $(a.dataset.target);
+                if (el) el.classList.remove('d-none');
+                
+                if(a.dataset.target === 'crear-solicitud') {
+                    poblarChecklistIndividual();
+                }
+                renderAll();
+            };
+        });
+
+        // Renderizado general de métricas y tablas
+        function renderAll() {
+            const s = DATA.solicitudes || [];
+            const r = DATA.recursos || [];
+            const p = s.filter(x => x.estado === 'Pendiente');
+            const a = s.filter(x => x.estado === 'Aprobado');
+            const low = r.filter(x => Number(x.stock_total) <= Number(x.stock_minimo));
+
+            if($('kPend')) $('kPend').textContent = p.length;
+            if($('kActive')) $('kActive').textContent = a.length;
+            if($('kTotalRecursos')) $('kTotalRecursos').textContent = r.length;
+            if($('kLow')) $('kLow').textContent = low.length;
+
+            if($('attention')) {
+                $('attention').innerHTML = (p.length || low.length)
+                    ? `Hay <b>${p.length}</b> solicitudes pendientes de Bienestar y <b>${low.length}</b> recursos con stock bajo.`
+                    : 'No hay tareas críticas pendientes en almacén.';
+            }
+
+            renderSolicitudes();
+            renderInventario();
+            renderHistorial();
+        }
+
+        // Renderizar bandeja de solicitudes para Almacén
+        function renderSolicitudes() {
+            const q = (($('qSolicitudes') &&$('qSolicitudes').value) || '').toLowerCase();
+            const a = (DATA.solicitudes || []).filter(x =>
+                x.estado === 'Pendiente' &&
+                `${x.usuario_nombre} ${x.recurso_nombre} ${x.observacion}`.toLowerCase().includes(q)
+            );
+
+            const tbl = $('tblSolicitudes');
+            if (!tbl) return;
+
+            tbl.innerHTML = a.map(x => `
+                <tr>
+                    <td><b>${x.usuario_nombre}</b><br><span class="r-mini">${x.usuario_correo || ''}</span><br><span class="text-muted small">${String(x.fecha_inicio || '').slice(0,10)}</span></td>
+                    <td><b>${x.recurso_nombre}</b></td>
+                    <td><b>${x.cantidad}</b></td>
+                    <td><span class="badge badge-info">${x.tipo_apoyo || 'Apoyo Logístico'}</span></td>
+                    <td>${x.observacion || '—'} ${x.tiene_archivo ? '<br><span class="r-mini text-primary"><i class="fas fa-paperclip"></i> Con soporte</span>' : ''}</td>
+                    <td><span class="r-status r-pending">Pendiente</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm font-weight-bold shadow-sm" onclick="abrirDetalleSolicitud(${x.id})">
+                            <i class="fas fa-eye mr-1"></i> Ver Detalle y Responder
+                        </button>
+                    </td>
+                </tr>`).join('') || '<tr><td colspan="7" class="r-empty">No hay solicitudes pendientes en la bandeja.</td></tr>';
+        }
+
+        // Poblar checklist individual
+        function poblarChecklistIndividual() {
+            const container = $('checklistIndividual');
+            if (!container) return;
+
+            const lista = DATA.recursos || [];
+            const disponibles = lista.filter(r => (r.estado || '').toLowerCase() !== 'baja' && Number(r.stock_total) > 0);
+
+            if (disponibles.length > 0) {
+                container.innerHTML = disponibles.map(r => `
+                    <div class="custom-control custom-radio mb-2">
+                        <input type="radio" class="custom-control-input" name="recurso_individual" value="${r.id}" id="ind_rec_${r.id}" required>
+                        <label class="custom-control-label cursor-pointer" for="ind_rec_${r.id}">
+                            <b>${r.nombre}</b> <span class="text-muted small">(${r.categoria})</span> — <span class="text-success font-weight-bold">Stock: ${r.stock_total}</span>
+                        </label>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div class="text-danger small font-weight-bold">No hay recursos disponibles para solicitar.</div>';
+            }
+        }
+
+        // Transmitir solicitud individual con tipo de apoyo al backend
+        function enviarSolicitudIndividual(event) {
+            if (event) event.preventDefault();
+
+            const seleccionado = document.querySelector('input[name="recurso_individual"]:checked');
+            if (!seleccionado) {
+                alert('Por favor seleccione un recurso del checklist.');
+                return;
+            }
+
+            const recursoId = seleccionado.value;
+            const cantidad = $('subCantidad').value;
+            const tipoApoyo = $('subTipoApoyo').value;
+            const prioridad = $('subPrioridad').value;
+            const observacion = $('subObservacion').value.trim();
+            const archivoInput = $('subArchivo');
+            const archivo = archivoInput && archivoInput.files[0] ? archivoInput.files[0] : null;
+
+            // Payload adaptado para incluir el tipo de apoyo
+            const payload = {
+                recurso_id: recursoId,
+                cantidad: cantidad,
+                tipo_apoyo: tipoApoyo,
+                prioridad: prioridad,
+                observacion: observacion || 'Requerimiento institucional de Bienestar.',
+                tiene_archivo: archivo ? true : false,
+                nombre_archivo: archivo ? archivo.name : null
+            };
+
+            api('crear_solicitud', payload, r => {
+                alert(r.message || (r.success ? 'Solicitud enviada a almacén con éxito.' : 'Error al enviar requerimiento.'));
+                if (r.success) {
+                    document.querySelector('#crear-solicitud form').reset();
+                    $('subArchivoLabel').textContent = 'Seleccionar archivo adjunto...';
+                    document.querySelector('[data-target="solicitudes"]').click();
+                    load();
+                }
+            });
+        }
+
+        // Abrir modal de detalle con el tipo de apoyo visible
+        function abrirDetalleSolicitud(id) {
+            const solicitud = (DATA.solicitudes || []).find(x => Number(x.id) === Number(id));
+            if (!solicitud) return;
+
+            $('detalleSolicitudId').value = id;
+            $('detSolicitante').textContent = `Solicitante: ${solicitud.usuario_nombre} (${solicitud.usuario_correo || 'Sin correo'})`;
+            $('detFecha').textContent = `Fecha de solicitud: ${String(solicitud.fecha_inicio || '').slice(0,10)}`;
+            $('detTipoApoyo').textContent = `Tipo de Apoyo: ${solicitud.tipo_apoyo || 'Apoyo Logístico'}`;
+            $('detMotivo').textContent = `Motivo / Observación: ${solicitud.observacion || 'Sin observación'}`;
+            $('detObservacionRespuesta').value = 'Solicitud verificada por Almacén.';
+
+            const recurso = (DATA.recursos || []).find(r =>
+                Number(r.id) === Number(solicitud.recurso_id) ||
+                String(r.nombre).trim().toLowerCase() === String(solicitud.recurso_nombre).trim().toLowerCase()
+            );
+
+            const stock = recurso ? Number(recurso.stock_total || 0) : 0;
+            const solicitado = Number(solicitud.cantidad || 0);
+            const disponible = stock >= solicitado;
+
+            const tblItems = $('tblDetalleItems');
+            tblItems.innerHTML = `
+                <tr>
+                    <td><b>${solicitud.recurso_nombre}</b><br><span class="text-muted small">${solicitud.tipo || 'Objeto'}</span></td>
+                    <td class="text-center font-weight-bold">${solicitado}</td>
+                    <td class="text-center font-weight-bold">${stock}</td>
+                    <td class="text-center">
+                        ${disponible 
+                            ? '<span class="badge badge-success p-2">Disponible</span>' 
+                            : '<span class="badge badge-danger p-2">Stock Insuficiente</span>'}
+                    </td>
+                </tr>
+            `;
+
+            $('#modalDetalleSolicitud').modal('show');
+        }
+
+        // Procesar aprobación o rechazo
+        function procesarRespuestaAlmacén(accion) {
+            const id = $('detalleSolicitudId').value;
+            const respuesta = $('detObservacionRespuesta').value.trim();
+
+            if (!id) return;
+
+            const endpoint = accion === 'aprobar' ? 'aprobar_solicitud' : 'rechazar_solicitud';
+            const mensajeDefault = accion === 'aprobar' ? 'Préstamo aprobado y confirmado por Almacén.' : 'Solicitud rechazada o sin stock disponible.';
+
+            api(endpoint, {
+                id: id,
+                observacion: respuesta || mensajeDefault
+            }, r => {
+                alert(r.message || 'Operación completada con éxito.');
+                if (r.success) {
+                    $('#modalDetalleSolicitud').modal('hide');
+                    load();
+                }
+            });
+        }
+
+        // Renderizar inventario
+        function renderInventario() {
+            const tbl = $('tblInventario');
+            if (!tbl) return;
+
+            tbl.innerHTML = (DATA.recursos || []).map(x => {
+                const low = Number(x.stock_total) <= Number(x.stock_minimo);
+                const estadoClass = x.estado === 'Baja' ? 'r-rejected' : low ? 'r-pending' : 'r-approved';
+                const estadoLabel = x.estado === 'Baja' ? 'Baja' : low ? 'Stock bajo' : 'Disponible';
+
+                return `
+                    <tr>
+                        <td><b>${x.nombre}</b></td>
+                        <td>${x.categoria}</td>
+                        <td>${x.tipo}</td>
+                        <td><b>${x.stock_total}</b></td>
+                        <td>${x.stock_minimo}</td>
+                        <td><span class="r-status ${estadoClass}">${estadoLabel}</span></td>
+                        <td>
+                            ${low ? `<button class="btn btn-primary btn-sm" onclick="reposicion(${x.id})">Solicitar implementos</button>` : '—'}
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="editar(${x.id})">Editar</button>
+                            <button class="btn btn-danger btn-sm" onclick="retirar(${x.id})">Retirar</button>
+                        </td>
+                    </tr>`;
+            }).join('') || '<tr><td colspan="8" class="r-empty">No hay recursos registrados.</td></tr>';
+        }
+
+        function nuevoRecurso() {
+            const form = $('formNuevoRecurso');
+            if (form) form.classList.remove('d-none');
+        }
+
+        function cerrarNuevoRecurso() {
+            const form = $('formNuevoRecurso');
+            if (form) form.classList.add('d-none');
+        }
+
+        function guardarNuevoRecurso(event) {
+            if (event) event.preventDefault();
+            api('guardar_recurso', {
+                id: null,
+                nombre: $('nrNombre').value.trim(),
+                categoria: $('nrCategoria').value.trim(),
+                tipo: $('nrTipo').value,
+                stock_total: $('nrStock').value,
+                stock_minimo: $('nrMinimo').value,
+                estado: 'Disponible'
+            }, r => {
+                alert(r.message || 'Recurso guardado.');
+                if (r.success) {
+                    cerrarNuevoRecurso();
+                    document.querySelector('#formNuevoRecurso form').reset();
+                    load();
+                }
+            });
+        }
+
+        function editar(id) {
+            const x = (DATA.recursos || []).find(r => Number(r.id) === Number(id));
+            if (!x) return;
+            selectedId = id;
+            $('rid').value = id;
+            $('rnombre').value = x.nombre;
+            $('rcat').value = x.categoria;
+            $('rtipo').value = x.tipo;
+            $('rstock').value = x.stock_total;
+            $('rmin').value = x.stock_minimo;
+            $('#modalRecurso').modal('show');
+        }
+
+        function guardarRecurso() {
+            api('guardar_recurso', {
+                id: selectedId || '',
+                nombre: $('rnombre').value,
+                categoria: $('rcat').value,
+                tipo: $('rtipo').value,
+                stock_total: $('rstock').value,
+                stock_minimo: $('rmin').value,
+                estado: 'Disponible'
+            }, r => {
+                alert(r.message);
+                if (r.success) {
+                    $('#modalRecurso').modal('hide');
+                    load();
+                }
+            });
+        }
+
+        function retirar(id) {
+            if (confirm('¿Retirar este recurso?')) {
+                api('retirar_recurso', { id }, r => { alert(r.message); load(); });
+            }
+        }
+
+        function reposicion(id) {
+            const q = prompt('Cantidad de implementos a solicitar:', '5');
+            if (q) {
+                api('solicitar_reposicion', { recurso_id: id, cantidad: q, observacion: 'Reposición por stock bajo' }, r => {
+                    alert(r.message);
+                    load();
+                });
+            }
+        }
+
+        function renderHistorial() {
+            const tbl = $('tblHistorial');
+            if (!tbl) return;
+            tbl.innerHTML = (DATA.historial || []).map(x => `
+                <tr>
+                    <td>${x.fecha}</td>
+                    <td>${x.actor || '—'}</td>
+                    <td>${x.accion}</td>
+                    <td>${x.detalle}</td>
+                </tr>`).join('') || '<tr><td colspan="4" class="r-empty">No hay movimientos registrados.</td></tr>';
+        }
+
+        load();
+        setInterval(load, 5000);
+
+        const name = localStorage.getItem("userName");
+        if (name) {
+            const userNameTop = document.getElementById("userNameTop");
+            if (userNameTop) userNameTop.textContent = name;
+        }
+    </script>
+
+</body>
+</html>
