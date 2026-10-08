@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -333,128 +333,73 @@
                     <p class="mb-4">A continuación te mostramos tu ranking y línea de progreso en base a tus resultados
                         académicos.</p>
 
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <div class="fondo-progreso-carrera">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h3 class="mb-3"><i class="fas fa-graduation-cap mr-2"></i>Progreso de tu
-                                            Carrera</h3>
-
-                                        <div class="career-info">
-                                            <div class="info-row">
-                                                <span><strong>Carrera:</strong></span>
-                                                <span>Tecnólogo en Análisis y Desarrollo de Software</span>
-                                            </div>
-                                            <div class="info-row">
-                                                <span><strong>Ficha:</strong></span>
-                                                <span>3142868</span>
-                                            </div>
-                                            <div class="info-row">
-                                                <span><strong>Fecha de inicio:</strong></span>
-                                                <span>Febrero 2025</span>
-                                            </div>
-                                            <div class="info-row">
-                                                <span><strong>Fecha estimada de finalización:</strong></span>
-                                                <span>Mayo 2027</span>
-                                            </div>
+                    <div class="row mb-4 mt-3">
+                        <div class="col-lg-8 mb-4">
+                            <div class="card shadow h-100 border-left-primary">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <img src="img/fondo.png" class="img-profile rounded-circle" style="width:78px;height:78px;object-fit:cover;" alt="Perfil">
                                         </div>
-
-                                        <div class="linea-progreso-carrera">
-                                            <div class="linea-progreso">
-                                                <div class="linea-progreso-relleno" style="width: 0%;"></div>
-                                            </div>
-
-                                            <div class="punto-progreso">
-                                                <div class="circulo-progreso completed">
-                                                    <i class="fas fa-laptop-code"></i>
-                                                </div>
-                                                <div class="titulo-progreso-carrera">Fundamentos</div>
-                                                <div class="subtitulo-progreso-carrera">Trimestre 1-2</div>
-                                            </div>
-
-                                            <div class="punto-progreso">
-                                                <div class="circulo-progreso completed">
-                                                    <i class="fas fa-code"></i>
-                                                </div>
-                                                <div class="titulo-progreso-carrera">Programación</div>
-                                                <div class="subtitulo-progreso-carrera">Trimestre 3-4</div>
-                                            </div>
-
-                                            <div class="punto-progreso">
-                                                <div class="circulo-progreso current">
-                                                    <i class="fas fa-database"></i>
-                                                </div>
-                                                <div class="titulo-progreso-carrera">Bases de Datos</div>
-                                                <div class="subtitulo-progreso-carrera">Trimestre 5-6</div>
-                                            </div>
-
-                                            <div class="punto-progreso">
-                                                <div class="circulo-progreso pending">
-                                                    <i class="fas fa-project-diagram"></i>
-                                                </div>
-                                                <div class="titulo-progreso-carrera">Desarrollo Web</div>
-                                                <div class="subtitulo-progreso-carrera">Trimestre 7-8</div>
-                                            </div>
-
-                                            <div class="punto-progreso">
-                                                <div class="circulo-progreso pending">
-                                                    <i class="fas fa-fire-alt"></i>
-                                                </div>
-                                                <div class="titulo-progreso-carrera">Proyecto Final</div>
-                                                <div class="subtitulo-progreso-carrera">Trimestre 9-10</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-4">
-                                            <h5 class="mb-3">Logros obtenidos:</h5>
-                                            <div>
-                                                <span class="logros-obtenidos"><i class="fas fa-star mr-1"></i>Mejor
-                                                    promedio Trimestre 2</span>
-                                                <span class="logros-obtenidos2"><i
-                                                        class="fas fa-user-check mr-1"></i>Asistencia a clase</span>
-                                                <span class="logros-obtenidos2"><i class="fas fa-users mr-1"></i>Trabajo
-                                                    en equipo</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <div class="text-center">
-                                            <div class="progreso-circular">
-                                                <svg>
-                                                    <circle class="circle-bg" cx="60" cy="60" r="50"></circle>
-                                                    <circle class="circulo-recorrido" cx="60" cy="60" r="50"></circle>
-                                                </svg>
-                                                <div class="progress-percentage">0%</div>
-                                            </div>
-                                            <h5 class="mb-3">Progreso General</h5>
-                                        </div>
-
-                                        <div class="separador">
-                                            <div class="stat-item">
-                                                <div class="stat-number">2.75</div>
-                                                <div class="stat-label">Trimestres completados</div>
-                                            </div>
-                                            <div class="stat-item">
-                                                <div class="stat-number">4.2</div>
-                                                <div class="stat-label">Promedio general</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="separador">
-                                            <div class="stat-item">
-                                                <div class="stat-number">10</div>
-                                                <div class="stat-label">Competencias aprobadas</div>
-                                            </div>
-
+                                        <div class="col">
+                                            <h4 class="font-weight-bold text-gray-800 mb-1" id="perfilNombre">Usuario</h4>
+                                            <div class="text-muted mb-2" id="perfilCorreo">correo no registrado</div>
+                                            <div class="small text-gray-600"><strong>Ficha:</strong> <span id="perfilFicha">Sin ficha</span> &nbsp; | &nbsp; <strong>Teléfono:</strong> <span id="perfilTelefono">Sin teléfono</span></div>
+                                            <span class="badge badge-primary mt-2" id="perfilRol">Usuario</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-4 mb-4">
+                            <div class="card shadow h-100">
+                                <div class="card-body d-flex flex-column justify-content-center">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Mi actividad</div>
+                                    <div class="h4 font-weight-bold text-gray-800 mb-1" id="perfilActividad">0 movimientos</div>
+                                    <div class="small text-gray-600">Actividad registrada únicamente en este perfil.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-4"><div class="card shadow h-100 py-2 border-left-primary"><div class="card-body"><div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Mis solicitudes</div><div class="h5 mb-0 font-weight-bold text-gray-800" id="statSolicitudes">0</div><small class="text-gray-600">Solicitudes realizadas por ti</small></div></div></div>
+                        <div class="col-md-3 mb-4"><div class="card shadow h-100 py-2 border-left-success"><div class="card-body"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">Mis préstamos</div><div class="h5 mb-0 font-weight-bold text-gray-800" id="statPrestamos">0</div><small class="text-gray-600">Préstamos activos</small></div></div></div>
+                        <div class="col-md-3 mb-4"><div class="card shadow h-100 py-2 border-left-warning"><div class="card-body"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mis favoritos</div><div class="h5 mb-0 font-weight-bold text-gray-800" id="statFavoritos">0</div><small class="text-gray-600">Recursos guardados por ti</small></div></div></div>
+                        <div class="col-md-3 mb-4"><div class="card shadow h-100 py-2 border-left-info"><div class="card-body"><div class="text-xs font-weight-bold text-info text-uppercase mb-1">Devueltos</div><div class="h5 mb-0 font-weight-bold text-gray-800" id="statDevueltos">0</div><small class="text-gray-600">Préstamos que ya entregaste</small></div></div></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-7 mb-4">
+                            <div class="card shadow h-100">
+                                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-bar mr-2"></i>Mis recursos más utilizados</h6></div>
+                                <div class="card-body"><div id="frecuentesLista"></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 mb-4">
+                            <div class="card shadow h-100">
+                                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-warning"><i class="fas fa-star mr-2"></i>Mis favoritos</h6></div>
+                                <div class="card-body"><div id="favoritosLista"></div><small class="text-muted d-block mt-3">Estos favoritos pertenecen únicamente a tu perfil.</small></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow h-100">
+                                <div class="card-header py-3 d-flex justify-content-between align-items-center"><h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-clipboard-list mr-2"></i>Mis solicitudes</h6><a href="prestamos.html" class="btn btn-sm btn-primary">Ver préstamos</a></div>
+                                <div class="card-body p-0"><div class="table-responsive"><table class="table table-hover mb-0"><thead class="thead-light"><tr><th>Recurso</th><th>Cant.</th><th>Estado</th></tr></thead><tbody id="solicitudesTabla"></tbody></table></div></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow h-100">
+                                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-success"><i class="fas fa-hand-holding mr-2"></i>Mis recursos prestados</h6></div>
+                                <div class="card-body p-0"><div class="table-responsive"><table class="table table-hover mb-0"><thead class="thead-light"><tr><th>Recurso</th><th>Cant.</th><th>Devolución</th></tr></thead><tbody id="prestamosTabla"></tbody></table></div></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -498,18 +443,102 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const progresoCarrera = document.querySelector(".linea-progreso-relleno");
-            const porcentajeProgreso = 55; // Porcentaje de progreso (0-100)
-            progresoCarrera.style.width = porcentajeProgreso + "%";
+            const data = window.SenaSpaceLocal ? window.SenaSpaceLocal.getData() : { recursos: [], solicitudes: [], usuarios: [] };
+            const recursos = Array.isArray(data.recursos) ? data.recursos : [];
+            const solicitudes = Array.isArray(data.solicitudes) ? data.solicitudes : [];
+            const usuarios = Array.isArray(data.usuarios) ? data.usuarios : [];
 
-            const circuloRecorrido = document.querySelector(".circulo-recorrido");
-            const progresoCircular = document.querySelector(".progress-percentage");
-            const radio = circuloRecorrido.r.baseVal.value;
-            const circunferencia = 2 * Math.PI * radio;
-            const offset = circunferencia - (porcentajeProgreso / 100) * circunferencia;
+            // Identidad del perfil actual. Se usa la sesión local, no los datos globales del administrador.
+            const nombreSesion = String(localStorage.getItem("userName") || "").trim();
+            const correoSesion = String(localStorage.getItem("userEmail") || "").trim().toLowerCase();
+            const cedulaSesion = String(localStorage.getItem("userCedula") || localStorage.getItem("cedula") || "").trim();
+            const fichaSesion = String(localStorage.getItem("userFicha") || "").trim();
 
-            circuloRecorrido.style.strokeDashoffset = offset;
-            progresoCircular.textContent = porcentajeProgreso + "%";
+            let usuario = usuarios.find(u => cedulaSesion && String(u.cedula) === cedulaSesion);
+            if (!usuario && correoSesion) usuario = usuarios.find(u => String(u.correo || "").toLowerCase() === correoSesion);
+            if (!usuario && nombreSesion) usuario = usuarios.find(u => String(u.nombre || "").trim().toLowerCase() === nombreSesion.toLowerCase());
+
+            const nombre = usuario?.nombre || nombreSesion || "Usuario";
+            const correo = usuario?.correo || correoSesion || "Correo no registrado";
+            const cedula = usuario?.cedula || cedulaSesion;
+            const ficha = usuario?.ficha || fichaSesion || "Sin ficha";
+            const telefono = usuario?.telefono || localStorage.getItem("userTelefono") || "Sin teléfono";
+
+            document.getElementById("perfilNombre").textContent = nombre;
+            document.getElementById("perfilCorreo").textContent = correo;
+            document.getElementById("perfilFicha").textContent = ficha;
+            document.getElementById("perfilTelefono").textContent = telefono;
+            document.getElementById("perfilRol").textContent = usuario?.tipo_usuario || usuario?.rol_sistema || "Usuario";
+
+            // Solo se consideran solicitudes del perfil actual. Nunca se muestran las de otros usuarios.
+            const propias = solicitudes.filter(s => {
+                const sid = String(s.usuario_id || "").trim();
+                const sCorreo = String(s.usuario_correo || "").trim().toLowerCase();
+                const sNombre = String(s.usuario_nombre || "").trim().toLowerCase();
+                return (cedula && sid === String(cedula)) || (correo && sCorreo === correo) || (!cedula && !correoSesion && nombre && sNombre === nombre.toLowerCase());
+            });
+
+            const activos = propias.filter(s => s.estado === "Aprobado");
+            const devueltos = propias.filter(s => s.estado === "Devuelto");
+
+            document.getElementById("statSolicitudes").textContent = propias.length;
+            document.getElementById("statPrestamos").textContent = activos.length;
+            document.getElementById("statDevueltos").textContent = devueltos.length;
+            document.getElementById("perfilActividad").textContent = propias.length + (propias.length === 1 ? " movimiento" : " movimientos");
+
+            // Favoritos independientes por usuario: un perfil no comparte favoritos con otro.
+            const identityKey = cedula || correoSesion || nombre.toLowerCase().replace(/[^a-z0-9]+/gi, "_");
+            const favoritosKey = "logInRecursosFavoritos_" + identityKey;
+            let favoritos = [];
+            try { favoritos = JSON.parse(localStorage.getItem(favoritosKey) || "[]").map(Number); } catch (e) { favoritos = []; }
+            document.getElementById("statFavoritos").textContent = favoritos.length;
+
+            const ranking = recursos.map(r => {
+                const registros = propias.filter(s => Number(s.recurso_id) === Number(r.id));
+                const cantidad = registros.reduce((n, s) => n + (Number(s.cantidad) || 1), 0);
+                return { ...r, cantidad };
+            }).filter(r => r.cantidad > 0).sort((a, b) => b.cantidad - a.cantidad);
+
+            const frecuentes = document.getElementById("frecuentesLista");
+            if (!ranking.length) {
+                frecuentes.innerHTML = '<div class="text-center text-muted py-4"><i class="fas fa-chart-bar fa-2x mb-2"></i><br>Aún no tienes préstamos registrados.</div>';
+            } else {
+                const max = ranking[0].cantidad || 1;
+                frecuentes.innerHTML = ranking.slice(0, 5).map((r, i) => `
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1"><span><strong>${i + 1}. ${r.nombre}</strong></span><span class="small text-gray-600">${r.cantidad} uso(s)</span></div>
+                        <div class="progress" style="height:12px"><div class="progress-bar bg-primary" style="width:${Math.max(8,(r.cantidad/max)*100)}%"></div></div>
+                    </div>`).join("");
+            }
+
+            function pintarFavoritos() {
+                const lista = document.getElementById("favoritosLista");
+                const favRecursos = favoritos.map(id => recursos.find(r => Number(r.id) === Number(id))).filter(Boolean);
+                document.getElementById("statFavoritos").textContent = favRecursos.length;
+                if (!favRecursos.length) {
+                    lista.innerHTML = '<div class="text-center text-muted py-4">Todavía no tienes recursos favoritos.</div>';
+                    return;
+                }
+                lista.innerHTML = favRecursos.map(r => `
+                    <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+                        <div><i class="fas fa-star text-warning mr-2"></i><strong>${r.nombre}</strong><div class="small text-muted">${r.categoria}</div></div>
+                        <button class="btn btn-sm btn-link text-danger quitar-favorito" data-id="${r.id}" title="Quitar favorito"><i class="fas fa-times"></i></button>
+                    </div>`).join("");
+                lista.querySelectorAll(".quitar-favorito").forEach(btn => btn.addEventListener("click", () => {
+                    favoritos = favoritos.filter(id => Number(id) !== Number(btn.dataset.id));
+                    localStorage.setItem(favoritosKey, JSON.stringify(favoritos));
+                    pintarFavoritos();
+                }));
+            }
+            pintarFavoritos();
+
+            const recientes = [...propias].sort((a,b) => String(b.fecha_creacion||"").localeCompare(String(a.fecha_creacion||""))).slice(0,5);
+            document.getElementById("solicitudesTabla").innerHTML = recientes.length ? recientes.map(s => {
+                const clase = s.estado === "Aprobado" ? "success" : s.estado === "Pendiente" ? "warning" : s.estado === "Devuelto" ? "info" : "danger";
+                return `<tr><td>${s.recurso_nombre || "Recurso"}</td><td>${s.cantidad || 1}</td><td><span class="badge badge-${clase}">${s.estado}</span></td></tr>`;
+            }).join("") : '<tr><td colspan="3" class="text-center text-muted py-4">No tienes solicitudes registradas.</td></tr>';
+
+            document.getElementById("prestamosTabla").innerHTML = activos.length ? activos.slice(0,5).map(s => `<tr><td>${s.recurso_nombre || "Recurso"}</td><td>${s.cantidad || 1}</td><td>${s.fecha_devolucion || "Por definir"}</td></tr>`).join("") : '<tr><td colspan="3" class="text-center text-muted py-4">No tienes recursos prestados actualmente.</td></tr>';
         });
     </script>
 </body>
