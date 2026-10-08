@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // ==========================================================================
 
 $nombre = trim($_POST['registerName'] ?? '');
-$apellido = trim($_POST['registerLastName'] ?? '');
 $correo = trim($_POST['registerEmail'] ?? '');
 $password = $_POST['registerPassword'] ?? '';
 $confirmPassword = $_POST['confirmPassword'] ?? '';
@@ -50,7 +49,6 @@ $userType = trim($_POST['userType'] ?? '');
 
 if (
     $nombre === '' ||
-    $apellido === '' ||
     $correo === '' ||
     $password === '' ||
     $confirmPassword === '' ||
@@ -105,9 +103,6 @@ if (!is_numeric($cedula)) {
 }
 
 $cedulaInt = (int) $cedula;
-
-// Concatenar nombre y apellido
-$nombreCompleto = $nombre . ' ' . $apellido;
 
 
 // ==========================================================================
@@ -235,7 +230,7 @@ mysqli_stmt_bind_param(
     'ississ',
     $cedulaInt,
     $correo,
-    $nombreCompleto,
+    $nombre,
     $rol_id,
     $tipoDocumento,
     $hashedPassword

@@ -20,7 +20,7 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$sql = "SELECT `nombre`, `correo`, `contraseña` FROM `admin` WHERE `correo` = ?";
+$sql = "SELECT `cedula`, `nombre`, `correo`, `contraseña`, COALESCE(`rol_sistema`, 'Usuario') FROM `admin` WHERE `correo` = ?";
 $stmt = mysqli_prepare($conexion, $sql);
 
 if (!$stmt) {
@@ -40,7 +40,7 @@ if (mysqli_stmt_num_rows($stmt) === 0) {
     exit;
 }
 
-mysqli_stmt_bind_result($stmt, $nombre, $email, $storedPassword);
+mysqli_stmt_bind_result($stmt, $cedula, $nombre, $email, $storedPassword, $rolSistema);
 
 if (mysqli_stmt_fetch($stmt)) {
     $loginOk = false;
@@ -50,18 +50,17 @@ if (mysqli_stmt_fetch($stmt)) {
         $loginOk = true;
     } elseif (is_string($passwordText) && password_verify($password, $passwordText)) {
         $loginOk = true;
-    } elseif (is_string($passwordText) && preg_match('/^[0-9a-f]{40}$/i', $passwordText) && sha1($password) === $passwordText) {
-        // Legacy SHA1 passwords support
-        $loginOk = true;
     }
 
     if ($loginOk) {
         session_regenerate_id(true);
+        $_SESSION['usuario_id'] = $cedula;
         $_SESSION['usuario'] = $nombre ?: $email;
         $_SESSION['correo'] = $email;
+        $_SESSION['rol_sistema'] = $rolSistema ?: 'Usuario';
         mysqli_stmt_close($stmt);
         mysqli_close($conexion);
-        header('Location: home.html');
+        header('Location: ' . (($rolSistema === 'Administrador') ? 'administrador.php' : 'usuario.php'));
         exit;
     }
 }

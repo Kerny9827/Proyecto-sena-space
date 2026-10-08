@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="img/icono3.png">
-    <title>Configuración de cuenta</title>
+    <title>Sena space - Configuración</title>
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -60,14 +60,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-bar"></i>
-                    <span>Panel de Actividad</span></a>
+                    <span>Ranking & linea de progreso</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="Tables.html">
                     <i class="fas fa-fw fa-project-diagram"></i>
-                    <span>Ruta de Ingresos</span></a>
+                    <span>RAPS</span></a>
             </li>
 
             <!-- Divider -->
@@ -263,7 +263,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown">
-                                <span id="userNameTop" class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Usuario</span>
                                 <img class="img-profile rounded-circle" src="img/fondo.png" width="45">
                             </a>
                              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -277,7 +277,7 @@
                                     Ajustes
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                  <a class="dropdown-item" href="logout.php">
+                                  <a class="dropdown-item" href="Login.html">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Desconectarse
                                 </a>
@@ -292,14 +292,13 @@
                         <div class="col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h1 class="m-0 font-weight-bold text">👤 Información Personal</h1>
+                                    <h1 class="m-0 font-weight-bold text">👤 Perfil del usuario</h1>
                                 </div>
                                 <div class="card-body">
                                     <ul>
-                                        <li> nombre / correo</li>
+                                        <li>Editar nombre / correo</li>
                                         <li>Cambiar foto de perfil</li>
-                                        <li>Fecha de nacimiento</li>
-                                        <li>Carrera Universitaria</li>
+                                        <li>Cambiar ficha o jornada</li>
                                     </ul>
 
                                     <a href="configuracion/perfil.html" class="btn btn-primary btn-icon-split">
@@ -321,7 +320,6 @@
                                         <li>Cambiar contraseña</li>
                                         <li>Ver último inicio de sesión</li>
                                         <li>Activar doble verificación (opcional)</li>
-                                        <li>Correo de recuperación</li>
                                     </ul>
 
                                     <!-- BOTÓN FUNCIONAL -->
@@ -338,12 +336,12 @@
                         <div class="col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h1 class="m-0 font-weight-bold text">📍 Horario Jornada</h1>
+                                    <h1 class="m-0 font-weight-bold text">📍 Horario / Ficha asignada</h1>
                                 </div>
                                 <div class="card-body">
                                     <ul>
-                                        <li>Carrera o Programa</li>
-                                        <li>Horario</li>
+                                        <li>Ficha o Programa</li>
+                                        <li>Horario trimestral</li>
                                         <li>Jornada</li>
                                     </ul>
 
@@ -357,9 +355,54 @@
                             </div>
                         </div>
 
-                        <!-- ELIMINAR CUENTA -->
+                        <!-- PREFERENCIAS -->
                         <div class="col-lg-6">
                             <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h1 class="m-0 font-weight-bold text">🎨 Preferencias</h1>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Modo oscuro / claro</li>
+                                        <li>Notificaciones</li>
+                                        <li>Idioma (opcional)</li>
+                                    </ul>
+
+                                    <!-- BOTÓN FUNCIONAL -->
+                                    <a href="configuracion/preferencias.html" class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50"><i class="fas fa-sliders-h"></i></span>
+                                        <span class="text">Editar Preferencias</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HISTORIAL -->
+                        <div class="col-lg-6 d-flex">
+                            <div class="card shadow mb-4 h-100 flex-fill">
+                                <div class="card-header py-3">
+                                    <h1 class="m-0 font-weight-bold text">⏱️ Mi historial</h1>
+                                </div>
+                                <div class="card-body">
+                                    <ul>
+                                        <li>Últimos accesos (fecha/hora)</li>
+                                        <li>Estadísticas personales</li>
+                                    </ul>
+
+                                    <!-- BOTÓN FUNCIONAL -->
+                                    <a href="configuracion/historial.html" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50"><i class="fas fa-history"></i></span>
+                                        <span class="text">Ver Historial</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ELIMINAR CUENTA -->
+                        <div class="col-lg-6 d-flex">
+                            <div class="card shadow mb-4 border-left-danger h-100 flex-fill">
                                 <div class="card-header py-3">
                                     <h1 class="m-0 font-weight-bold text">🗑️ Eliminar cuenta</h1>
                                 </div>
@@ -368,7 +411,7 @@
                                         permanentemente.</p>
 
                                     <ul>
-                        ddddddddsxxeeeeeeeeeed                <li>Confirmación con contraseña</li>
+                                        <li>Confirmación con contraseña</li>
                                         <li>Mensaje de advertencia</li>
                                     </ul>
 
@@ -399,7 +442,7 @@
                 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
                 <script src="js/sb-admin-2.min.js"></script>
-                <script src="js/session.js"></script>
+                
 
 </body>
 

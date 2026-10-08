@@ -12,73 +12,865 @@ body{background:#f8f9fc}.loan-wrap{max-width:1180px;margin:35px auto;padding:0 1
 </style>
 </head>
 <body id="page-top">
-<div class="loan-wrap">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div><h1 class="h3 loan-title mb-1"><i class="fas fa-hand-holding"></i> Solicitar préstamo</h1><p class="loan-muted mb-0">Solicita un recurso disponible y consulta el estado de tus préstamos.</p></div>
-    <a href="recursos.html" class="btn btn-light"><i class="fas fa-arrow-left mr-1"></i> Recursos</a>
-  </div>
 
-  <div class="loan-card">
-    <h2 class="h5 font-weight-bold mb-3">Nueva solicitud</h2>
-    <form id="loanForm">
-      <div class="row">
-        <div class="col-md-6 mb-3"><label>Nombre del solicitante *</label><input id="nombre" class="form-control" required></div>
-        <div class="col-md-3 mb-3"><label>Ficha</label><input id="ficha" class="form-control" inputmode="numeric" placeholder="Ej. 2876543"></div>
-        <div class="col-md-3 mb-3"><label>Teléfono</label><input id="telefono" class="form-control" type="tel" placeholder="Ej. 3001234567"></div>
-        <div class="col-md-6 mb-3"><label>Correo / contacto</label><input id="correo" type="email" class="form-control" placeholder="correo@ejemplo.com"></div>
-        <div class="col-md-4 mb-3"><label>Recurso *</label><select id="recurso" class="form-control" required></select></div>
-        <div class="col-md-2 mb-3"><label>Cantidad *</label><input id="cantidad" type="number" min="1" value="1" class="form-control" required></div>
-        <div class="col-md-3 mb-3"><label>Fecha inicio *</label><input id="inicio" type="date" class="form-control" required></div>
-        <div class="col-md-3 mb-3"><label>Fecha devolución *</label><input id="fin" type="date" class="form-control" required></div>
-        <div class="col-12 mb-3"><div id="disponibilidad" class="alert alert-info mb-0">Selecciona un recurso.</div></div>
-        <div class="col-12 mb-3"><label>Motivo / observación</label><textarea id="observacion" rows="3" class="form-control" placeholder="Indica para qué necesitas el recurso..."></textarea></div>
-      </div>
-      <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane mr-1"></i> Solicitar préstamo</button>
-    </form>
-  </div>
+    <div id="wrapper">
 
-  <div class="loan-card">
-    <h2 class="h5 font-weight-bold mb-3">Mis solicitudes y préstamos</h2>
-    <div class="table-responsive"><table class="table table-bordered">
-      <thead><tr><th>Recurso</th><th>Datos del solicitante</th><th>Fechas</th><th>Cantidad</th><th>Estado</th><th>Observación</th><th>Acción</th></tr></thead>
-      <tbody id="misSolicitudes"></tbody>
-    </table></div>
-  </div>
-</div>
-<script src="sena_space_local.js"></script>
-<script>
-const $=id=>document.getElementById(id);
-let recursos=[];
-function cargar(){
-  SenaSpaceLocal.api('listar_recursos',{},r=>{recursos=r.data.recursos||[]; llenarRecursos(); render(); actualizarDisponibilidad();});
-  render();
-}
-function llenarRecursos(){
-  const select=$('recurso');
-  const seleccionado=select.value;
-  select.innerHTML=recursos.map(r=>`<option value="${r.id}" ${r.estado==='Baja'||Number(r.stock_total)<=0?'disabled':''}>${r.nombre} — ${r.stock_total} disponible(s)</option>`).join('');
-  const existe=recursos.some(r=>String(r.id)===String(seleccionado) && r.estado!=='Baja' && Number(r.stock_total)>0);
-  if(existe){
-    select.value=seleccionado;
-  }else{
-    const primera=[...select.options].find(o=>!o.disabled);
-    if(primera) select.value=primera.value;
-  }
-}
-function actualizarDisponibilidad(){
-  const r=recursos.find(x=>Number(x.id)===Number($('recurso').value));
-  if(!r){$('disponibilidad').className='alert alert-warning';$('disponibilidad').textContent='No hay recursos disponibles.';return;}
-  const q=Number($('cantidad').value)||1;
-  if(r.estado==='Baja'||Number(r.stock_total)<=0){$('disponibilidad').className='alert alert-danger';$('disponibilidad').textContent='Este recurso no está disponible para préstamo.';}
-  else if(q>Number(r.stock_total)){$('disponibilidad').className='alert alert-warning';$('disponibilidad').textContent=`Stock insuficiente. Disponible: ${r.stock_total}.`}
-  else{$('disponibilidad').className='alert alert-success';$('disponibilidad').textContent=`Disponible: ${r.stock_total} unidad(es). Tu solicitud quedará pendiente de aprobación del administrador.`}
-}
-$('recurso').onchange=actualizarDisponibilidad;$('cantidad').oninput=actualizarDisponibilidad;
-$('loanForm').onsubmit=e=>{e.preventDefault();const r=recursos.find(x=>Number(x.id)===Number($('recurso').value));if(!r)return alert('Selecciona un recurso.');SenaSpaceLocal.api('crear_solicitud',{usuario_nombre:$('nombre').value.trim(),usuario_correo:$('correo').value.trim(),usuario_ficha:$('ficha').value.trim(),usuario_telefono:$('telefono').value.trim(),recurso_id:r.id,cantidad:$('cantidad').value,fecha_inicio:$('inicio').value,fecha_devolucion:$('fin').value,observacion:$('observacion').value.trim()},res=>{alert(res.message);if(res.success){$('observacion').value='';render();}})};
-function badge(e){const c=e==='Aprobado'?'approved':e==='Rechazado'?'rejected':e==='Devuelto'?'returned':'pending';return `<span class="loan-badge ${c}">${e}</span>`}
-function render(){const nombre=($('nombre')?.value||localStorage.getItem('userName')||'').trim().toLowerCase();const data=SenaSpaceLocal.getData();const list=data.solicitudes.filter(s=>!nombre||String(s.usuario_nombre||'').trim().toLowerCase()===nombre||String(s.usuario_correo||'').trim().toLowerCase()===String($('correo')?.value||localStorage.getItem('userEmail')||'').trim().toLowerCase());$('misSolicitudes').innerHTML=list.map(s=>`<tr><td><b>${s.recurso_nombre}</b><br><small>${s.tipo}</small></td><td><b>${s.usuario_nombre || '—'}</b><br><small>Ficha: ${s.usuario_ficha || '—'} · Tel: ${s.usuario_telefono || '—'}</small></td><td>${s.fecha_inicio} → ${s.fecha_devolucion}</td><td>${s.cantidad}</td><td>${badge(s.estado)} ${Number(s.devolucion_solicitada)===1?'<br><span class="loan-badge pending mt-1">Devolución solicitada</span>':''}</td><td>${s.observacion||'—'}</td><td>${s.estado==='Aprobado'&&!Number(s.devolucion_solicitada)?`<button class="btn btn-warning btn-sm" (${s.id})">Solicitar devolución</button>`:s.estado==='Aprobado'&&Number(s.devolucion_solicitada)?'<span class="text-muted"></span>':'—'}</td></tr>`).join('')||'<tr><td colspan="7" class="text-center text-muted">No tienes solicitudes registradas.</td></tr>'}
-function solicitarDevolucion(id){SenaSpaceLocal.api('solicitar_devolucion',{id,observacion:'El usuario solicita la devolución del recurso.'},r=>{alert(r.message);render();})}
-window.addEventListener('storage',e=>{if(e.key===SenaSpaceLocal.STORAGE_KEY){cargar()}});window.addEventListener('sena-space-local-updated',cargar);setInterval(cargar,1000);
-const storedName=localStorage.getItem('userName');if(storedName)$('nombre').value=storedName;const storedEmail=localStorage.getItem('userEmail');if(storedEmail)$('correo').value=storedEmail;const storedFicha=localStorage.getItem('userFicha');if(storedFicha)$('ficha').value=storedFicha;const storedTelefono=localStorage.getItem('userTelefono');if(storedTelefono)$('telefono').value=storedTelefono;cargar();
-</script>
-</body></html>
+        <!-- SIDEBAR -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="home.html">
+
+                <div class="sidebar-brand-icon">
+                    <img src="img/fondo.png" width="45">
+                </div>
+
+                <div class="sidebar-brand-text mx-2">
+                    LOG-IN
+                </div>
+
+            </a>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Menú Principal
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="home.html">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="usuario.html">
+                    <i class="fas fa-fw fa-box-open"></i>
+                    <span>Recursos y préstamos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="administrador.html">
+                    <i class="fas fa-fw fa-user-shield"></i>
+                    <span>Administrador de recursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="recursos.html">
+                    <i class="fas fa-fw fa-boxes"></i>
+                    <span>Recursos</span>
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="prestamos.html">
+                    <i class="fas fa-fw fa-handshake"></i>
+                    <span>Préstamos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="almacen.html">
+                    <i class="fas fa-fw fa-boxes"></i>
+                    <span>Solicitud de Almacén</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Gráficos
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-bar"></i>
+                    <span>Ranking & linea de progreso</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="Tables.html">
+                    <i class="fas fa-fw fa-project-diagram"></i>
+                    <span>RAPS</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Perfil y Configuración
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="buttons.html">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Configuración de cuenta</span>
+                </a>
+            </li>
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0"
+                    id="sidebarToggle">
+                </button>
+            </div>
+
+        </ul>
+
+
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <!-- TOPBAR -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop"
+                        class="btn btn-link d-md-none rounded-circle mr-3">
+
+                        <i class="fa fa-bars"></i>
+
+                    </button>
+
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+
+                        <div class="input-group">
+
+                            <input type="text"
+                                class="form-control bg-light border-0 small"
+                                placeholder="Buscar por..."
+                                aria-label="Search"
+                                aria-describedby="basic-addon2">
+
+                            <div class="input-group-append">
+
+                                <button class="btn btn-primary"
+                                    type="button">
+
+                                    <i class="fas fa-search fa-sm"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Búsqueda móvil -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="searchDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <i class="fas fa-search fa-fw"></i>
+
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+
+                                <form class="form-inline mr-auto w-100 navbar-search">
+
+                                    <div class="input-group">
+
+                                        <input type="text"
+                                            class="form-control bg-light border-0 small"
+                                            placeholder="Search for..."
+                                            aria-label="Search"
+                                            aria-describedby="basic-addon2">
+
+                                        <div class="input-group-append">
+
+                                            <button class="btn btn-primary"
+                                                type="button">
+
+                                                <i class="fas fa-search fa-sm"></i>
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </li>
+
+
+                        <!-- Notificaciones -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="alertsDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <i class="fas fa-bell fa-fw"></i>
+
+                                <span class="badge badge-danger badge-counter">
+                                    3+
+                                </span>
+
+                            </a>
+
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+
+                                <h6 class="dropdown-header"
+                                    style="background: linear-gradient(180deg,#2e8b57 10%,#1e3c72 100%);">
+                                    Notificaciones
+                                </h6>
+
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+
+                                    <div>
+
+                                        <div class="small text-gray-500">
+                                            December 12, 2019
+                                        </div>
+
+                                        <span class="font-weight-bold">
+                                            A new monthly report is ready to download!
+                                        </span>
+
+                                    </div>
+
+                                </a>
+
+                                <a class="dropdown-item text-center small text-gray-500"
+                                    href="#">
+                                    Mirar todas las Notificaciones
+                                </a>
+
+                            </div>
+
+                        </li>
+
+
+                        <!-- Mensajes -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="messagesDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <i class="fas fa-comment fa-fw"></i>
+
+                                <span class="badge badge-danger badge-counter">
+                                    7
+                                </span>
+
+                            </a>
+
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+
+                                <h6 class="dropdown-header"
+                                    style="background: linear-gradient(180deg,#2e8b57 10%,#1e3c72 100%);">
+                                    Centro de Mensajes
+                                </h6>
+
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="#">
+
+                                    <div class="dropdown-list-image mr-3">
+
+                                        <img class="rounded-circle"
+                                            src="img/undraw_profile_1.svg"
+                                            alt="...">
+
+                                        <div class="status-indicator bg-success"></div>
+
+                                    </div>
+
+                                    <div class="font-weight-bold">
+
+                                        <div class="text-truncate">
+                                            Hi there! I am wondering if you can help me with a problem I've been having.
+                                        </div>
+
+                                        <div class="small text-gray-500">
+                                            Emily Fowler · 58m
+                                        </div>
+
+                                    </div>
+
+                                </a>
+
+                                <a class="dropdown-item text-center small text-gray-500"
+                                    href="#">
+                                    Leer todos los Mensajes
+                                </a>
+
+                            </div>
+
+                        </li>
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+
+                        <!-- Usuario -->
+                        <li class="nav-item dropdown no-arrow">
+
+                            <a class="nav-link dropdown-toggle"
+                                href="#"
+                                id="userDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    id="userNameTop">
+                                    Usuario
+                                </span>
+
+                                <img class="img-profile rounded-circle"
+                                    src="img/fondo.png"
+                                    width="45">
+
+                            </a>
+
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item"
+                                    href="charts.html">
+
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+
+                                </a>
+
+                                <a class="dropdown-item"
+                                    href="buttons.html">
+
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Ajustes
+
+                                </a>
+
+                                <a class="dropdown-item"
+                                    href="Login.html">
+
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Desconectar
+
+                                </a>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+
+                <!-- CONTENIDO -->
+                <div class="container-fluid">
+
+                    <header class="prestamos-header">
+
+                        <h1>🤝 Préstamos y Solicitudes</h1>
+
+                        <span class="badge">
+                            MÓDULO PRÉSTAMOS
+                        </span>
+
+                    </header>
+
+
+                    <!-- Navegación del módulo -->
+                    <nav class="prestamos-content-nav">
+
+                        <a href="recursos.html">
+                            📦 Recursos
+                        </a>
+
+                        <a class="active"
+                            href="prestamos.html">
+                            🤝 Préstamos
+                        </a>
+
+                        <a href="usuario.html">
+                            👤 Mi módulo
+                        </a>
+
+                      
+                    </nav>
+
+
+                    <main>
+
+                        <!-- Solicitud -->
+                        <div class="prestamos-panel">
+
+                            <h2>
+                                Solicitar objeto o servicio
+                            </h2>
+
+                            <div class="r-form">
+
+                                <label>
+
+                                    Recurso
+
+                                    <select id="recurso"></select>
+
+                                </label>
+
+
+                                <div class="r-row">
+
+                                    <label>
+
+                                        Fecha de inicio
+
+                                        <input id="inicio"
+                                            type="date">
+
+                                    </label>
+
+
+                                    <label>
+
+                                        Fecha de devolución / cierre
+
+                                        <input id="fin"
+                                            type="date">
+
+                                    </label>
+
+                                </div>
+
+
+                                <div class="r-alert"
+                                    id="disp">
+
+                                    Selecciona recurso y fechas para verificar disponibilidad.
+
+                                </div>
+
+
+                                <label>
+
+                                    Cantidad
+
+                                    <input id="cantidad"
+                                        type="number"
+                                        min="1"
+                                        value="1">
+
+                                </label>
+
+
+                                <label>
+
+                                    Motivo / observación
+
+                                    <textarea id="obs"
+                                        rows="3"
+                                        placeholder="Indica para qué necesitas el recurso o servicio"></textarea>
+
+                                </label>
+
+
+                                <div>
+
+                                    <button class="r-btn r-primary"
+                                        id="enviar"
+                                        onclick="crear()">
+
+                                        Enviar solicitud
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Mis solicitudes -->
+                        <h2 class="prestamos-main-title">
+                            Mis solicitudes
+                        </h2>
+
+
+                        <div class="prestamos-panel prestamos-table-panel">
+
+                            <table class="r-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Recurso
+                                        </th>
+
+                                        <th>
+                                            Fechas
+                                        </th>
+
+                                        <th>
+                                            Cantidad
+                                        </th>
+
+                                        <th>
+                                            Estado
+                                        </th>
+
+                                        <th>
+                                            Observación
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="mis"></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </main>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+            <footer class="sticky-footer bg-white">
+
+                <div class="container my-auto">
+
+                    <div class="copyright text-center my-auto">
+
+                        <span>
+                            Copyright © LOG-IN 2026
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTÓN SUBIR -->
+    <a href="#page-top"
+        class="floating-btn">
+
+        <i class="fas fa-arrow-up"></i>
+
+    </a>
+
+
+    <!-- SCRIPTS  PARA UBICAR DONDE CORRESPONDE -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+
+
+    <!-- FUNCIONALIDAD ORIGINAL -->
+    <script>
+
+        const $ = id => document.getElementById(id);
+
+        let recursos = [];
+
+
+        function api(a, extra = {}) {
+
+            let f = new FormData();
+
+            f.append('accion', a);
+
+            Object.entries(extra).forEach(([k, v]) =>
+                f.append(k, v)
+            );
+
+            return fetch('recursos_api.php', {
+                method: 'POST',
+                body: f
+            }).then(r => r.json());
+
+        }
+
+
+        function cargar() {
+
+            api('listar_recursos').then(r => {
+
+                if (!r.success)
+                    return alert(r.message);
+
+                recursos = r.data;
+
+                $('recurso').innerHTML =
+                    recursos.map(x =>
+                        `<option value="${x.id}">
+                            ${x.nombre} — ${x.tipo}
+                        </option>`
+                    ).join('');
+
+
+                let id =
+                    new URLSearchParams(location.search)
+                        .get('recurso');
+
+
+                if (id)
+                    $('recurso').value = id;
+
+
+                verificar();
+
+            });
+
+        }
+
+
+        function verificar() {
+
+            let a = $('inicio').value,
+                b = $('fin').value,
+                id = $('recurso').value;
+
+
+            if (!a || !b || !id)
+                return;
+
+
+            if (a > b) {
+
+                $('disp').innerHTML =
+                    '⚠️ La fecha de inicio no puede ser posterior a la devolución.';
+
+                return;
+
+            }
+
+
+            api('verificar_disponibilidad', {
+
+                recurso_id: id,
+                fecha_inicio: a,
+                fecha_devolucion: b
+
+            }).then(r => {
+
+                if (!r.success) {
+
+                    $('disp').textContent =
+                        r.message;
+
+                    return;
+
+                }
+
+
+                $('disp').innerHTML =
+                    `Stock total: <b>${r.data.stock_total}</b> · Ocupados: <b>${r.data.ocupados}</b> · Disponibles: <b>${r.data.disponibles}</b>`;
+
+
+                $('cantidad').max =
+                    r.data.disponibles;
+
+
+                $('enviar').disabled =
+                    r.data.disponibles < 1;
+
+            });
+
+        }
+
+
+        function crear() {
+
+            api('crear_solicitud', {
+
+                recurso_id:
+                    $('recurso').value,
+
+                fecha_inicio:
+                    $('inicio').value,
+
+                fecha_devolucion:
+                    $('fin').value,
+
+                cantidad:
+                    $('cantidad').value,
+
+                observacion:
+                    $('obs').value
+
+            }).then(r => {
+
+                alert(r.message);
+
+
+                if (r.success) {
+
+                    $('obs').value = '';
+
+                    mis();
+
+                }
+
+            });
+
+        }
+
+
+        function mis() {
+
+            api('mis_solicitudes').then(r => {
+
+                if (!r.success)
+                    return;
+
+
+                $('mis').innerHTML =
+
+                    r.data.map(x => `<tr>
+
+                        <td>
+                            <b>${x.recurso_nombre}</b>
+                            <div class="r-mini">
+                                ${x.tipo}
+                            </div>
+                        </td>
+
+                        <td>
+                            ${x.fecha_inicio}
+                            →
+                            ${x.fecha_devolucion}
+                        </td>
+
+                        <td>
+                            ${x.cantidad}
+                        </td>
+
+                        <td>
+
+                            <span class="r-status ${
+                                x.estado === 'Aprobado'
+                                    ? 'r-approved'
+                                    : x.estado === 'Rechazado'
+                                    ? 'r-rejected'
+                                    : x.estado === 'Devuelto'
+                                    ? 'r-returned'
+                                    : 'r-pending'
+                            }">
+
+                                ${x.estado}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+                            ${x.observacion || '—'}
+                        </td>
+
+                    </tr>`).join('')
+
+                    ||
+
+                    '<tr><td colspan="5" class="r-empty">No tienes solicitudes.</td></tr>';
+
+            });
+
+        }
+
+
+        $('recurso').onchange =
+            verificar;
+
+        $('inicio').onchange =
+            verificar;
+
+        $('fin').onchange =
+            verificar;
+
+
+        let t =
+            new Date()
+                .toISOString()
+                .slice(0, 10);
+
+
+        $('inicio').min = t;
+
+        $('fin').min = t;
+
+
+        cargar();
+
+        mis();
+
+        setInterval(mis, 7000);
+
+
+        /* Usuario */
+        let name =
+            localStorage.getItem("userName");
+
+
+        if (name) {
+
+            const userNameTop =
+                document.getElementById("userNameTop");
+
+            if (userNameTop)
+                userNameTop.textContent = name;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

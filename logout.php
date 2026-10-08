@@ -1,16 +1,6 @@
 <?php
 session_start();
-
-// Destruye todas las variables de sesión y la sesión en el servidor
-$_SESSION = [];
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params['path'], $params['domain'],
-        $params['secure'], $params['httponly']
-    );
-}
+$_SESSION=[];
+if (ini_get('session.use_cookies')) { $p=session_get_cookie_params(); setcookie(session_name(),'',time()-42000,$p['path'],$p['domain'],$p['secure'],$p['httponly']); }
 session_destroy();
-
-header('Location: Login.html');
-exit;
+header('Location: Login.html'); exit;

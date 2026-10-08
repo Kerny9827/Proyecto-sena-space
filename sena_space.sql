@@ -42,28 +42,6 @@ CREATE TABLE `acceso` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
---
-
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Datos para la tabla `roles`
---
-
-INSERT INTO `roles` (`id`, `nombre`) VALUES
-(1, 'Aprendiz'),
-(2, 'Instructor'),
-(3, 'Seguridad'),
-(4, 'Cafetería'),
-(5, 'Visitante');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `admin`
 --
 
@@ -72,7 +50,6 @@ CREATE TABLE `admin` (
   `correo` varchar(50) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `tipo_usuario` varchar(50) DEFAULT NULL,
-  `rol_id` int(11) DEFAULT NULL,
   `tipo_documento` varchar(50) DEFAULT NULL,
   `contraseña` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -81,11 +58,11 @@ CREATE TABLE `admin` (
 -- Volcado de datos para la tabla `admin`
 --
 
-INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `tipo_usuario`, `rol_id`, `tipo_documento`, `contraseña`) VALUES
-(12345698, 'kd@gmail.com', 'Kevin Jaramillo', 'Aprendiz', 1, 'Cedula', '0'),
-(12398745, 'iv@gmail.com', 'Ivan cepeda', 'Visitante', 5, 'Cedula', '0'),
-(123456989, 'tbmz@gmail.com', 'Sebas bedoya', 'Aprendiz', 1, 'Cedula', '0'),
-(135832168, 'dd@gmail.com', 'Dani D', 'Varios', NULL, 'Cedula', '0');
+INSERT INTO `admin` (`cedula`, `correo`, `nombre`, `tipo_usuario`, `tipo_documento`, `contraseña`) VALUES
+(12345698, 'kd@gmail.com', 'Kevin Jaramillo', 'Aprendiz', 'Cedula', '0'),
+(12398745, 'iv@gmail.com', 'Ivan cepeda', 'Visitante', 'Cedula', '0'),
+(123456989, 'tbmz@gmail.com', 'Sebas bedoya', 'Aprendiz', 'Cedula', '0'),
+(135832168, 'dd@gmail.com', 'Dani D', 'Varios', 'Cedula', '0');
 
 -- --------------------------------------------------------
 
@@ -168,16 +145,7 @@ ALTER TABLE `acceso`
 -- Indices de la tabla `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`cedula`),
-  ADD KEY `idx_admin_rol_id` (`rol_id`);
-
---
--- Indices de la tabla `roles`
---
-
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `uk_roles_nombre` (`nombre`);
+  ADD PRIMARY KEY (`cedula`);
 
 --
 -- Indices de la tabla `ambiente`
@@ -240,13 +208,6 @@ ALTER TABLE `notificacion`
 --
 
 --
--- Filtros para la tabla `admin`
---
-
-ALTER TABLE `admin`
-  ADD CONSTRAINT `fk_admin_rol` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
---
 -- Filtros para la tabla `acceso`
 --
 ALTER TABLE `acceso`
@@ -286,22 +247,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- ============================================================
--- SISTEMA NUMÉRICO DE ROLES
--- ============================================================
--- Los roles disponibles quedan centralizados en la tabla `roles`.
---
--- 1 = Aprendiz
--- 2 = Instructor
--- 3 = Seguridad
--- 4 = Cafetería
--- 5 = Visitante
---
--- La tabla `admin`.`rol_id` referencia `roles`.`id`.
--- `tipo_usuario` se conserva para mantener compatibilidad con el
--- código existente del proyecto.
--- ============================================================
 
 -- ============================================================
 -- MÓDULO INTEGRADO DE RECURSOS / PRÉSTAMOS

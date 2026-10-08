@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="img/icono3.png">
-    <title>Recursos y préstamos | LOG-IN</title>
+    <title>Ranking</title>
 
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -82,11 +82,36 @@
                     <span>Inicio</span></a>
             </li>
 
+
+            <li class="nav-item">
+                <a class="nav-link" href="usuario.html">
+                    <i class="fas fa-fw fa-box-open"></i>
+                    <span>Recursos y préstamos</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="administrador.html">
+                    <i class="fas fa-fw fa-user-shield"></i>
+                    <span>Administrador de recursos</span></a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="almacen.html">
+                    <i class="fas fa-fw fa-boxes"></i>
+                    <span>Solicitud de Almacén</span>
+                </a>
+            </li>
+
+
             <hr class="sidebar-divider">
+
 
             <div class="sidebar-heading">
                 Gráficos
             </div>
+
 
             <li class="nav-item active">
                 <a class="nav-link" href="charts.html">
@@ -94,23 +119,13 @@
                     <span>Ranking & linea de progreso</span></a>
             </li>
 
+
             <li class="nav-item">
                 <a class="nav-link" href="Tables.html">
                     <i class="fas fa-fw fa-project-diagram"></i>
                     <span>RAPS</span></a>
             </li>
 
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">
-                Perfil y Configuración
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="buttons.html">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Configuración de cuenta</span></a>
-            </li>
 
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -314,13 +329,9 @@
 
                 <div class="container-fluid">
 
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <div>
-                            <h1 class="h3 mb-1 text-gray-800">Mi perfil</h1>
-                            <p class="mb-0 text-gray-600">Aquí solo aparece tu información de LOG-IN: tus solicitudes, préstamos, favoritos y recursos que utilizas.</p>
-                        </div>
-                        <a href="recursos.html" class="btn btn-primary"><i class="fas fa-box-open mr-2"></i>Explorar recursos</a>
-                    </div>
+                    <h1 class="h3 mb-2 text-gray-800">Ranking & línea de progreso</h1>
+                    <p class="mb-4">A continuación te mostramos tu ranking y línea de progreso en base a tus resultados
+                        académicos.</p>
 
                     <div class="row mb-4 mt-3">
                         <div class="col-lg-8 mb-4">
@@ -429,9 +440,6 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
-
-
-    <script src="sena_space_local.js">/*    OJO CAMBIAR AL JS DE LOG-IN YA QUE ESTE SOLO ES DEPRUEBA   */</script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
