@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        const name = data.usuario || 'Usuario';
+        const name = typeof data.usuario === 'string' && data.usuario.trim()
+            ? data.usuario.trim()
+            : 'Usuario';
         const userNameTop = document.getElementById('userNameTop');
         if (userNameTop) {
             userNameTop.textContent = name;
@@ -27,7 +29,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         const welcomeUser = document.getElementById('welcomeUser');
         if (welcomeUser) {
-            welcomeUser.innerHTML = `Hola <b>${name}</b>, esperamos que tengas un excelente día.`;
+            const boldName = document.createElement('b');
+            boldName.textContent = name;
+            welcomeUser.replaceChildren(
+                'Hola ',
+                boldName,
+                ', esperamos que tengas un excelente día.'
+            );
         }
     } catch (error) {
         console.error('No se pudo cargar la sesión:', error);

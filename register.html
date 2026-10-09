@@ -62,7 +62,6 @@
                           class="form-control"
                           id="registerName"
                           placeholder="Nombre"
-                          placeholder="Apellido"
                           required
                         />
                       </div>
@@ -70,10 +69,9 @@
                        <div class="form-group">
                         <input
                           type="text"
-                          name="registerName"
+                          name="registerLastName"
                           class="form-control"
-                          id="registerName"
-                          placeholder="Apellido"
+                          id="registerLastName"
                           placeholder="Apellido"
                           required
                         />
@@ -272,7 +270,8 @@
         "Instructor": 2,
         "Seguridad": 3,
         "Cafetería": 4,
-        "Visitante": 5
+        "Visitante": 5,
+        "Almacen": 6
       };
 
       userType.addEventListener("change", function () {
@@ -310,156 +309,21 @@
                 <b>${this.value}</b>`;
       });
 
-      document
-        .getElementById("registerForm")
-        .addEventListener("submit", function (e) {
+      document.getElementById("registerForm").addEventListener("submit", function (e) {
+        const password = document.getElementById("registerPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
           e.preventDefault();
+          alert("Las contraseñas no coinciden.");
+          return;
+        }
 
-          let name = document.getElementById("registerName").value.trim();
-
-          let email = document.getElementById("registerEmail").value.trim();
-
-          let password = document.getElementById("registerPassword").value;
-
-          let confirmPassword =
-            document.getElementById("confirmPassword").value;
-
-          let role = document.getElementById("userType").value;
-          let rolId = document.getElementById("rol_id").value;
-
-          let tipoDoc = document.getElementById("tipoDocumento").value;
-
-          let cedula = document.getElementById("Cedula").value.trim();
-
-          if (
-            !name ||
-            !email ||
-            !password ||
-            !confirmPassword ||
-            !role ||
-            !tipoDoc ||
-            !cedula
-          ) {
-            alert("Completa todos los campos.");
-            return;
-          }
-
-          if (password !== confirmPassword) {
-            alert("Las contraseñas no coinciden.");
-            return;
-          }
-
-          this.submit();
-
-          // DATOS DEL QR
-
-          const qrData = `
-            LOG-IN USER
-            ------------------------
-            Nombre: ${name}
-            Correo: ${email}
-            Documento: ${tipoDoc}
-            Número: ${cedula}
-            Rol: ${role}
-            ${role === "Aprendiz" ? `Número de ficha: ${numeroFicha.value.trim()}` : ""}
-            Registro: ${new Date().toLocaleString()}
-            `;
-
-          // MOSTRAR QR
-
-          document.getElementById("qrContainer").style.display = "block";
-
-          QRCode.toCanvas(document.getElementById("qrCanvas"), qrData, {
-            width: 280,
-            margin: 2,
-          });
-
-          localStorage.setItem("userName", name);
-          localStorage.setItem("userRole", role);
-          localStorage.setItem("userQR", qrData);
-
-          alert("Cuenta registrada correctamente.");
-        });
-
-          // REGISTRO + QR
-
-        document.getElementById("registerForm")
-            .addEventListener("submit", function (e) {
-
-            e.preventDefault();
-
-            let name =
-                document.getElementById("registerName").value.trim();
-
-            let email =
-                document.getElementById("registerEmail").value.trim();
-
-            let password =
-                document.getElementById("registerPassword").value;
-
-            let confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-            let role =
-                document.getElementById("userType").value;
-
-            let tipoDoc =
-                document.getElementById("tipoDocumento").value;
-
-            let cedula =
-                document.getElementById("Cedula").value.trim();
-
-            if (!name || !email || !password || !confirmPassword
-                || !role || !tipoDoc || !cedula) {
-
-                alert("Completa todos los campos.");
-                return;
-
-            }
-
-            if (password !== confirmPassword) {
-
-                alert("Las contraseñas no coinciden.");
-                return;
-
-            }
-
-            // DATOS DEL QR
-
-            const qrData = `
-            LOG-IN USER
-            ------------------------
-            Nombre: ${name}
-            Correo: ${email}
-            Documento: ${tipoDoc}
-            Número: ${cedula}
-            Rol: ${role}
-            Registro: ${new Date().toLocaleString()}
-            `;
-
-            // MOSTRAR QR
-
-            document.getElementById("qrContainer")
-                .style.display = "block";
-
-            QRCode.toCanvas(
-                document.getElementById("qrCanvas"),
-                qrData,
-                {
-                    width: 280,
-                    margin: 2
-                }
-            );
-
-            // GUARDAR EN LOCALSTORAGE
-
-            localStorage.setItem("userName", name);
-            localStorage.setItem("userRole", role);
-            localStorage.setItem("userQR", qrData);
-
-            alert("Cuenta registrada correctamente.");
-
-        });
+        if (userType.value === "Aprendiz" && !numeroFicha.value.trim()) {
+          e.preventDefault();
+          alert("Ingresa el número de ficha para el rol Aprendiz.");
+        }
+      });
     </script>
   </body>
 </html>

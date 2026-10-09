@@ -47,11 +47,14 @@ CREATE TABLE `acceso` (
 
 CREATE TABLE `admin` (
   `cedula` int(11) NOT NULL,
-  `correo` varchar(50) DEFAULT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
+  `correo` varchar(254) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `apellido` varchar(100) DEFAULT NULL,
   `tipo_usuario` varchar(50) DEFAULT NULL,
+  `rol_id` int(11) DEFAULT NULL,
   `tipo_documento` varchar(50) DEFAULT NULL,
-  `contraseña` varchar(50) DEFAULT NULL
+  `numero_ficha` varchar(30) DEFAULT NULL,
+  `contraseña` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -253,6 +256,13 @@ COMMIT;
 -- Añadido al proyecto LOG-IN
 -- ============================================================
 USE sena_space;
+ALTER TABLE admin
+  ADD COLUMN IF NOT EXISTS apellido VARCHAR(100) DEFAULT NULL,
+  ADD COLUMN IF NOT EXISTS rol_id INT(11) DEFAULT NULL,
+  ADD COLUMN IF NOT EXISTS numero_ficha VARCHAR(30) DEFAULT NULL,
+  MODIFY correo VARCHAR(254) DEFAULT NULL,
+  MODIFY nombre VARCHAR(100) DEFAULT NULL,
+  MODIFY contraseña VARCHAR(255) DEFAULT NULL;
 ALTER TABLE admin ADD COLUMN IF NOT EXISTS rol_sistema VARCHAR(30) NOT NULL DEFAULT 'Usuario';
 UPDATE admin SET rol_sistema='Administrador' WHERE correo='kd@gmail.com';
 
