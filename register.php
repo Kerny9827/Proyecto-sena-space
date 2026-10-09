@@ -35,12 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // ==========================================================================
 
 $nombre = trim($_POST['registerName'] ?? '');
+$apellido = trim($_POST['registerLastName'] ?? '');
 $correo = trim($_POST['registerEmail'] ?? '');
 $password = $_POST['registerPassword'] ?? '';
 $confirmPassword = $_POST['confirmPassword'] ?? '';
 $tipoDocumento = trim($_POST['tipo_documento'] ?? '');
 $cedula = trim($_POST['cedula'] ?? '');
 $userType = trim($_POST['userType'] ?? '');
+$numeroFicha = trim($_POST['numeroFicha'] ?? '');
 
 
 // ==========================================================================
@@ -49,7 +51,10 @@ $userType = trim($_POST['userType'] ?? '');
 
 if (
     $nombre === '' ||
+    $apellido === '' ||
     $correo === '' ||
+    !is_string($password) ||
+    !is_string($confirmPassword) ||
     $password === '' ||
     $confirmPassword === '' ||
     $tipoDocumento === '' ||
@@ -89,12 +94,23 @@ if ($password !== $confirmPassword) {
     exit;
 }
 
+if ($userType === 'Aprendiz' && $numeroFicha === '') {
+    echo "<script>
+        alert('Ingresa el número de ficha para el rol Aprendiz.');
+        window.location='Register.html';
+    </script>";
+    exit;
+}
+if ($userType !== 'Aprendiz') {
+    $numeroFicha = null;
+}
+
 
 // ==========================================================================
 // 5. VALIDAR CÉDULA
 // ==========================================================================
 
-if (!is_numeric($cedula)) {
+if (!ctype_digit($cedula)) {
     echo "<script>
         alert('La cédula debe contener solo números.');
         window.location='Register.html';
@@ -117,6 +133,7 @@ $cedulaInt = (int) $cedula;
 // Seguridad  -> 3
 // Cafetería  -> 4
 // Visitante  -> 5
+// Almacen    -> 6
 //
 // Este paso se realiza en PHP para que el número del rol no dependa
 // únicamente del HTML o JavaScript.
@@ -127,7 +144,8 @@ $roles = [
     'Instructor' => 2,
     'Seguridad'  => 3,
     'Cafetería'  => 4,
-    'Visitante'  => 5
+    'Visitante'  => 5,
+    'Almacen'    => 6
 ];
 
 
@@ -192,18 +210,12 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 // 11. INSERTAR EL USUARIO
 // ==========================================================================
 //
-// IMPORTANTE:
-// Aquí se guarda $rol_id, es decir, el número del rol.
-//
-// La columna `tipo_usuario` debe aceptar el ID numérico.
-// Si actualmente esa columna es VARCHAR y quieres guardar los números,
-// funcionará igualmente como texto ("1", "2", etc.). Lo recomendable,
-// sin embargo, es que en la BD sea INT.
+// El nombre del rol se guarda en tipo_usuario y su ID en rol_id.
 // ==========================================================================
 
 $sql = 'INSERT INTO `admin`
-        (`cedula`, `correo`, `nombre`, `tipo_usuario`, `tipo_documento`, `contraseña`)
-        VALUES (?, ?, ?, ?, ?, ?)';
+        (`cedula`, `correo`, `nombre`, `apellido`, `tipo_usuario`, `rol_id`, `tipo_documento`, `numero_ficha`, `contraseña`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
 $stmt = mysqli_prepare($conexion, $sql);
 
@@ -213,26 +225,19 @@ if (!$stmt) {
 
 
 // ==========================================================================
-// 12. GUARDAR EL ID NUMÉRICO DEL ROL
+// 12. GUARDAR EL USUARIO Y LOS CAMPOS DEL FORMULARIO
 // ==========================================================================
-//
-// En lugar de guardar:
-//     $userType  -> "Aprendiz", "Instructor", etc.
-//
-// Guardamos:
-//     $rol_id    -> 1, 2, 3, 4 o 5.
-//
-// Se mantiene "i" porque el ID del rol es un número entero.
-// ==========================================================================
-
 mysqli_stmt_bind_param(
     $stmt,
-    'ississ',
+    'issssisss',
     $cedulaInt,
     $correo,
     $nombre,
+    $apellido,
+    $userType,
     $rol_id,
     $tipoDocumento,
+    $numeroFicha,
     $hashedPassword
 );
 
