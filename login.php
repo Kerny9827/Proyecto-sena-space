@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $correo = trim($_POST['correo'] ?? '');
-$password = trim($_POST['password'] ?? '');
+$password = $_POST['password'] ?? '';
 
-if ($correo === '' || $password === '') {
+if (!is_string($password) || $correo === '' || $password === '') {
     echo "<script>alert('Debe ingresar correo y contraseña.'); window.location='Login.html';</script>";
     exit;
 }
@@ -20,7 +20,7 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$sql = "SELECT `cedula`, `nombre`, `correo`, `contraseña`, COALESCE(`rol_sistema`, 'Usuario') FROM `admin` WHERE `correo` = ?";
+$sql = "SELECT `cedula`, CONCAT_WS(' ', NULLIF(`nombre`, ''), NULLIF(`apellido`, '')), `correo`, `contraseña`, COALESCE(`rol_sistema`, 'Usuario') FROM `admin` WHERE `correo` = ?";
 $stmt = mysqli_prepare($conexion, $sql);
 
 if (!$stmt) {
@@ -46,9 +46,12 @@ if (mysqli_stmt_fetch($stmt)) {
     $loginOk = false;
     $passwordText = (string) $storedPassword;
 
-    if ($passwordText === $password) {
+   if ($passwordText === $password) {
         $loginOk = true;
     } elseif (is_string($passwordText) && password_verify($password, $passwordText)) {
+        $loginOk = true;
+    } elseif (is_string($passwordText) && preg_match('/^[0-9a-f]{40}$/i', $passwordText) && sha1($password) === $passwordText) {
+        // Legacy SHA1 passwords support
         $loginOk = true;
     }
 
@@ -60,7 +63,7 @@ if (mysqli_stmt_fetch($stmt)) {
         $_SESSION['rol_sistema'] = $rolSistema ?: 'Usuario';
         mysqli_stmt_close($stmt);
         mysqli_close($conexion);
-        header('Location: ' . (($rolSistema === 'Administrador') ? 'administrador.php' : 'usuario.php'));
+        header('Location: ' . (($rolSistema === 'Administrador') ? 'administrador.php' : 'home.html'));
         exit;
     }
 }
